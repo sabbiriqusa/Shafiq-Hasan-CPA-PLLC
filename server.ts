@@ -3,11 +3,39 @@ import path from "path";
 import dotenv from "dotenv";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
+import helmet from "helmet";
+import compression from "compression";
 
 dotenv.config();
 
 const app = express();
 const PORT = 3000;
+
+// Improve security by hiding Express headers
+app.disable("x-powered-by");
+
+// Compression middleware to speed up download speeds of heavy assets
+app.use(compression());
+
+// Security Hardened headers with Helmet
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'", "https://*.googleapis.com", "https://*.gstatic.com", "https://*.google.com"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://*.googleapis.com", "https://*.google.com"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://*.googleapis.com"],
+        imgSrc: ["'self'", "data:", "https://images.unsplash.com", "https://*.google.com", "https://*.gstatic.com", "https://*.googleapis.com"],
+        connectSrc: ["'self'", "https://*.googleapis.com", "https://*.gstatic.com", "https://*.google.com"],
+        fontSrc: ["'self'", "data:", "https://fonts.gstatic.com"],
+        frameAncestors: ["'self'", "*"], // Crucial to load preview seamlessly in AI Studio iframe
+      },
+    },
+    frameguard: false,
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+  })
+);
 
 // Middleware
 app.use(express.json());
