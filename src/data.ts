@@ -1,14 +1,13 @@
 import { Service, TeamMember, TaxProblem, Testimonial, BlogPost, FAQItem } from "./types";
 
-// Generated Image Paths from active session
-export const DALLAS_SKYLINE = "/src/assets/images/dallas_skyline_1781632263259.jpg";
-export const SHAFIQ_HASAN_PORTRAIT = "/src/assets/images/shafiq_hasan_1781632281576.jpg";
-export const TAX_CHART_ILLUSTRATION = "/src/assets/images/tax_planning_chart_1781632301674.jpg";
+export const DALLAS_SKYLINE = new URL("./assets/images/dallas_skyline_1781632263259.jpg", import.meta.url).href;
+export const SHAFIQ_HASAN_PORTRAIT = new URL("./assets/images/shafiq_hasan_1781632281576.jpg", import.meta.url).href;
+export const TAX_CHART_ILLUSTRATION = new URL("./assets/images/tax_planning_chart_1781632301674.jpg", import.meta.url).href;
 
-export const INDIVIDUAL_SERVICE_IMG = "/src/assets/images/individual_service_1781639252977.jpg";
-export const BUSINESS_SERVICE_IMG = "/src/assets/images/business_service_1781639271862.jpg";
-export const QUICKBOOK_SERVICE_IMG = "/src/assets/images/quickbook_service_1781639291735.jpg";
-export const TAX_SERVICE_IMG = "/src/assets/images/tax_service_1781639310789.jpg";
+export const INDIVIDUAL_SERVICE_IMG = new URL("./assets/images/individual_service_1781639252977.jpg", import.meta.url).href;
+export const BUSINESS_SERVICE_IMG = new URL("./assets/images/business_service_1781639271862.jpg", import.meta.url).href;
+export const QUICKBOOK_SERVICE_IMG = new URL("./assets/images/quickbook_service_1781639291735.jpg", import.meta.url).href;
+export const TAX_SERVICE_IMG = new URL("./assets/images/tax_service_1781639310789.jpg", import.meta.url).href;
 
 export const servicesData: Service[] = [
   {

@@ -841,60 +841,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* 7. Section 5: "Great People chose Shafiq Hasan for Accountancy Problems" */}
-      <section id="testimonials-section" className="py-24 bg-[#fafdfa]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center space-y-3 mb-16">
-            <span className="text-[10px] uppercase font-bold tracking-widest text-[#0b2512] bg-[#a3e635]/15 px-3 py-1 rounded-full font-mono">
-              Testimonials
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-gray-900 tracking-tight">
-              Great People chose Shafiq Hasan for Accountancy Problems
-            </h2>
-            <p className="max-w-xl mx-auto text-xs text-gray-500">
-              See how corporate operators and real estate holding firms achieve compliant growth under our representation.
-            </p>
-          </div>
-
-          {/* Testimonial Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonialsData.map((test) => (
-              <div
-                key={test.id}
-                className="bg-white border border-gray-150 p-6 sm:p-8 rounded-3xl shadow-sm hover:shadow-xl hover:border-emerald-800/10 transition-all flex flex-col justify-between"
-              >
-                <div className="space-y-5">
-                  <Quote className="w-8 h-8 text-lime-400/80" />
-                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed italic">
-                    &ldquo;{test.quote}&rdquo;
-                  </p>
-                </div>
-
-                <div className="pt-6 mt-6 border-t border-gray-100 flex items-center gap-3">
-                  <img
-                    src={test.avatar}
-                    alt={`${test.author}, testimonial`}
-                    className="w-10 h-10 rounded-full object-cover shadow-sm bg-gray-50 shrink-0 border border-gray-200"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div>
-                    <h4 className="text-xs font-bold text-gray-900">{test.author}</h4>
-                    <p className="text-[10px] text-gray-500 font-semibold">{test.role} · {test.company}</p>
-                    <div className="flex gap-0.5 text-yellow-400 mt-1">
-                      {[...Array(test.rating)].map((_, i) => (
-                        <Star key={i} className="w-3 h-3 fill-yellow-400 text-transparent" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
       {/* 8. Section 6: "When Tax Knowledge is super power" (Blog Posts) */}
       <section id="blogs-section" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-gray-150">
         
