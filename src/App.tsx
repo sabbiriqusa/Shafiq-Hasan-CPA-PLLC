@@ -68,20 +68,13 @@ import {
 import { Service, TeamMember, BlogPost } from "./types";
 
 export default function App() {
-  // Dark / Light Theme Toggle State
-  const [theme, setTheme] = useState<"light" | "dark">(() => {
-    const saved = localStorage.getItem("shafiq_cpa_theme");
-    return (saved === "dark" || saved === "light") ? saved : "light";
-  });
+  // Dark / Light Theme forced to Pristine Light
+  const [theme] = useState<"light">("light");
 
   useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    localStorage.setItem("shafiq_cpa_theme", theme);
-  }, [theme]);
+    document.documentElement.classList.remove("dark");
+    localStorage.setItem("shafiq_cpa_theme", "light");
+  }, []);
 
   // Navigation active anchors state
   const [activeTab, setActiveTab] = useState("home");
@@ -517,21 +510,6 @@ export default function App() {
 
           {/* Right Action Button & Mobile Trigger */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0 relative z-10">
-            {/* Theme Toggle Button */}
-            <button
-              id="theme-toggle-btn"
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              className="p-2.5 rounded-full border border-sky-400/25 bg-sky-950/40 text-[#38bdf8] hover:bg-sky-900/40 hover:text-white transition-all cursor-pointer flex items-center justify-center shrink-0 shadow-lg"
-              aria-label="Toggle Theme"
-              title={`Switch to ${theme === "light" ? "Dark" : "Light"} Mode`}
-            >
-              {theme === "light" ? (
-                <Moon className="w-4.5 h-4.5" />
-              ) : (
-                <Sun className="w-4.5 h-4.5 text-amber-400" />
-              )}
-            </button>
-
             {/* Free Consultation Button */}
             <motion.button
               id="header-free-consultation-btn"
@@ -813,23 +791,23 @@ export default function App() {
 
 
 
-      {/* 6. Section 4: "Your Tax Problems, Our Solution" (Dark glowing neon section) */}
-      <section id="tax-problems-section" className="relative py-24 bg-black text-white overflow-hidden">
+      {/* 6. Section 4: "Your Tax Problems, Our Solution" (Light glowing aquatic responsive section with grids) */}
+      <section id="tax-problems-section" className="relative py-24 bg-[#dbfaf0]/35 text-gray-900 overflow-hidden grid-overlay border-b border-sky-100">
         
         {/* Glow ambient spots */}
-        <div className="absolute top-1/4 right-[5%] w-[350px] h-[350px] bg-emerald-700/20 rounded-full blur-[100px] glow-ambient z-0"></div>
-        <div className="absolute bottom-1/4 left-[5%] w-[350px] h-[350px] bg-lime-600/10 rounded-full blur-[100px] glow-ambient z-0"></div>
+        <div className="absolute top-1/4 right-[5%] w-[350px] h-[350px] bg-sky-200/20 rounded-full blur-[100px] glow-ambient z-0"></div>
+        <div className="absolute bottom-1/4 left-[5%] w-[350px] h-[350px] bg-emerald-200/20 rounded-full blur-[100px] glow-ambient z-0"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
           <div className="text-center space-y-3 mb-16">
-            <span className="text-[10px] uppercase font-bold tracking-widest text-[#a3e635] bg-[#a3e635]/10 border border-[#a3e635]/25 px-3 py-1 rounded-full font-mono">
+            <span className="text-[10px] uppercase font-bold tracking-widest text-sky-600 bg-sky-50 border border-sky-150 px-3 py-1 rounded-full font-mono">
               One Stop Tax Solution
             </span>
-            <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-sky-950 tracking-tight">
               Your Tax Problems, Our Solution
             </h2>
-            <p className="max-w-2xl mx-auto text-xs sm:text-sm text-zinc-400">
+            <p className="max-w-2xl mx-auto text-xs sm:text-sm text-slate-600">
               Texas real estate taxes are rising, appraisal districts utilize bulk calculations, and global VAT shipping causes immense delays. Secure absolute resolution.
             </p>
           </div>
@@ -839,22 +817,22 @@ export default function App() {
             {taxProblemsData.map((prob) => (
               <div
                 key={prob.id}
-                className="bg-neutral-900/60 hover:bg-[#0b2512]/35 border border-zinc-800/80 hover:border-[#a3e635]/20 p-6 sm:p-8 rounded-3xl transition-all shadow-lg flex flex-col justify-between group"
+                className="bg-white/95 hover:bg-white border border-sky-100/70 hover:border-sky-300 p-6 sm:p-8 rounded-3xl transition-all shadow-md hover:shadow-xl flex flex-col justify-between group relative z-10"
               >
                 <div className="space-y-4">
-                  <div className="w-10 h-10 bg-[#a3e635]/10 rounded-xl flex items-center justify-center text-[#a3e635] border border-[#a3e635]/15 font-bold text-lg">
+                  <div className="w-10 h-10 bg-sky-50 rounded-xl flex items-center justify-center text-sky-500 border border-sky-100 font-bold text-lg">
                     %
                   </div>
-                  <h3 className="text-lg font-semibold text-white group-hover:text-[#a3e635] transition-all">
+                  <h3 className="text-lg font-semibold text-sky-950 group-hover:text-sky-600 transition-all">
                     {prob.title}
                   </h3>
-                  <p className="text-xs text-zinc-400 leading-relaxed">
+                  <p className="text-xs text-slate-650 leading-relaxed">
                     {prob.description}
                   </p>
                 </div>
 
-                <div className="pt-4 mt-6 border-t border-zinc-800 text-[10px] text-zinc-400 leading-relaxed block bg-white/5 -mx-8 -mb-8 p-4 rounded-b-3xl">
-                  <strong className="text-zinc-200 block mb-0.5 font-bold uppercase tracking-wider">CPA Texas Relief:</strong>
+                <div className="pt-4 mt-6 border-t border-slate-100 text-[10px] text-slate-550 leading-relaxed block bg-slate-50/70 -mx-8 -mb-8 p-4 rounded-b-3xl">
+                  <strong className="text-sky-950 block mb-0.5 font-bold uppercase tracking-wider">CPA Texas Relief:</strong>
                   {prob.stateImpact}
                 </div>
               </div>
@@ -865,7 +843,7 @@ export default function App() {
           <div className="flex justify-center mt-16">
             <button
               onClick={() => triggerScheduler("Tax dispute consulting")}
-              className="bg-white hover:bg-[#a3e635] text-emerald-950 font-bold text-xs px-8 py-3.5 rounded-full transition-all cursor-pointer shadow-xl shadow-white/5"
+              className="bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs px-8 py-3.5 rounded-full transition-all cursor-pointer shadow-md hover:shadow-lg"
             >
               Book a call
             </button>
@@ -1411,26 +1389,11 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Floating WhatsApp Quick Connect Button */}
-      <div className="fixed bottom-24 right-6 md:bottom-6 md:right-32 z-50 font-sans">
-        <a
-          href="https://wa.me/12142564111"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white py-3 px-5 rounded-full shadow-2xl focus:outline-none border-2 border-white/60 cursor-pointer transition-all hover:scale-105 active:scale-95 group font-bold text-xs"
-        >
-          <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white group-hover:rotate-12 transition-transform">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-11.233c-.124-.207-.456-.331-.952-.579-.496-.248-2.338-1.155-2.697-1.287-.358-.133-.62-.199-.878.199-.257.398-.999 1.258-1.226 1.514-.227.257-.455.289-.951.041-.497-.248-2.099-.773-3.998-2.467-1.478-1.321-2.477-2.952-2.766-3.449-.29-.497-.031-.766.217-1.012.223-.222.497-.579.745-.869.248-.29.33-.497.496-.828.166-.331.083-.62-.041-.869-.124-.248-.878-2.115-1.205-2.902-.319-.769-.643-.666-.878-.678-.227-.012-.488-.014-.746-.014-.257 0-.678.096-1.031.478-.352.383-1.346 1.315-1.346 3.207 0 1.892 1.378 3.716 1.572 3.974.195.258 2.71 4.139 6.565 5.799.917.395 1.633.631 2.19.809.923.292 1.763.25 2.428.152.741-.11 2.28-.932 2.6-1.785.32-.853.32-1.583.224-1.785z"/>
-          </svg>
-          Chat WhatsApp
-        </a>
-      </div>
-
-      {/* Floating AI chatbot component */}
-      <ChatBot />
-
       {/* Floating Google Reviews client widget */}
       <FloatingGoogleReviews />
+
+      {/* Floating AI chatbot component and unified Support Hub */}
+      <ChatBot />
 
       {/* Calendar consultation scheduling overlay wizard */}
       <ConsultationWizard

@@ -5,6 +5,9 @@ import { motion, AnimatePresence } from "motion/react";
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMainHovered, setIsMainHovered] = useState(false);
+  const [hoveredOption, setHoveredOption] = useState<"chat" | "whatsapp" | null>(null);
+  
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
@@ -81,27 +84,103 @@ export default function ChatBot() {
   ];
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans">
+    <div className="fixed bottom-6 right-6 z-50 font-sans flex flex-col items-end">
       <AnimatePresence>
         {!isOpen && (
-          <motion.button
-            id="chat-toggle-floating-button"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setIsOpen(true)}
-            className="flex items-center gap-2 bg-[#0b2512] hover:bg-[#1a4a26] text-white p-4 rounded-full shadow-2xl focus:outline-none border-2 border-[#a3e635] cursor-pointer group"
+          <div
+            className="flex flex-col items-end gap-3.5"
+            onMouseEnter={() => setIsMainHovered(true)}
+            onMouseLeave={() => {
+              setIsMainHovered(false);
+              setHoveredOption(null);
+            }}
           >
-            <div className="relative">
-              <MessageSquare className="w-6 h-6 text-[#a3e635]" />
-              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-ping"></span>
-            </div>
-            <span className="hidden md:inline text-xs font-semibold pr-1 tracking-wider text-white">
-              CPA Tax Chatbox
-            </span>
-          </motion.button>
+            {/* The Stack of Options - Appears on Hover of the support hub */}
+            <AnimatePresence>
+              {isMainHovered && (
+                <motion.div
+                  initial={{ opacity: 0, y: 15, scale: 0.85 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 15, scale: 0.85 }}
+                  transition={{ duration: 0.22 }}
+                  className="flex flex-col items-end gap-2.5 pb-2"
+                >
+                  {/* Option 1: WhatsApp */}
+                  <motion.a
+                    href="https://wa.me/12142564111"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={() => setHoveredOption("whatsapp")}
+                    onMouseLeave={() => setHoveredOption(null)}
+                    animate={{
+                      width: hoveredOption === "whatsapp" ? 175 : 46,
+                      borderRadius: hoveredOption === "whatsapp" ? "24px" : "9999px"
+                    }}
+                    transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                    className="flex items-center justify-start bg-[#25D366] hover:bg-[#20ba5a] text-white h-11 shadow-xl border-2 border-white/60 cursor-pointer overflow-hidden select-none pr-1"
+                    style={{ width: 46 }}
+                  >
+                    <div className="flex items-center justify-center shrink-0 w-10 h-10 ml-0.5">
+                      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-11.233c-.124-.207-.456-.331-.952-.579-.496-.248-2.338-1.155-2.697-1.287-.358-.133-.62-.199-.878.199-.257.398-.999 1.258-1.226 1.514-.227.257-.455.289-.951.041-.497-.248-2.099-.773-3.998-2.467-1.478-1.321-2.477-2.952-2.766-3.449-.29-.497-.031-.766.217-1.012.223-.222.497-.579.745-.869.248-.29.33-.497.496-.828.166-.331.083-.62-.041-.869-.124-.248-.878-2.115-1.205-2.902-.319-.769-.643-.666-.878-.678-.227-.012-.488-.014-.746-.014-.257 0-.678.096-1.031.478-.352.383-1.346 1.315-1.346 3.207 0 1.892 1.378 3.716 1.572 3.974.195.258 2.71 4.139 6.565 5.799.917.395 1.633.631 2.19.809.923.292 1.763.25 2.428.152.741-.11 2.28-.932 2.6-1.785.32-.853.32-1.583.224-1.785z"/>
+                      </svg>
+                    </div>
+                    {hoveredOption === "whatsapp" && (
+                      <motion.span
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="text-xs font-bold whitespace-nowrap pr-4 text-white"
+                      >
+                        Chat WhatsApp
+                      </motion.span>
+                    )}
+                  </motion.a>
+
+                  {/* Option 2: AI CPA Chatbox */}
+                  <motion.button
+                    onMouseEnter={() => setHoveredOption("chat")}
+                    onMouseLeave={() => setHoveredOption(null)}
+                    onClick={() => setIsOpen(true)}
+                    animate={{
+                      width: hoveredOption === "chat" ? 175 : 46,
+                      borderRadius: hoveredOption === "chat" ? "24px" : "9999px"
+                    }}
+                    transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                    className="flex items-center justify-start bg-[#0b2512] hover:bg-[#1a4a26] text-white h-11 shadow-xl border-2 border-[#a3e635] cursor-pointer overflow-hidden select-none pr-1 focus:outline-none"
+                    style={{ width: 46 }}
+                  >
+                    <div className="flex items-center justify-center shrink-0 w-10 h-10 ml-0.5 text-[#a3e635]">
+                      <MessageSquare className="w-5 h-5 ml-0.5" />
+                    </div>
+                    {hoveredOption === "chat" && (
+                      <motion.span
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="text-xs font-bold text-white whitespace-nowrap pr-4"
+                      >
+                        CPA Tax Chatbox
+                      </motion.span>
+                    )}
+                  </motion.button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Primary Live Assistant Master Floating Trigger Badge */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 bg-gradient-to-r from-sky-400 to-sky-600 text-white px-4 py-3 rounded-full shadow-2xl border-2 border-white/60 cursor-pointer select-none"
+            >
+              <div className="relative flex items-center justify-center">
+                <Sparkles className="w-4 h-4 text-amber-300 animate-pulse shrink-0" />
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-400 rounded-full animate-ping"></span>
+              </div>
+              <span className="text-xs font-bold tracking-wider uppercase pr-1">
+                {isMainHovered ? "Select Advisor" : "Contact Advisors"}
+              </span>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 

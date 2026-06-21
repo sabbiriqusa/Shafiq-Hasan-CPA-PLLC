@@ -337,30 +337,46 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
         ref={sectionRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="relative text-white overflow-hidden bg-emerald-950 min-h-[580px] flex items-center"
+        className="relative text-slate-800 overflow-hidden min-h-[580px] flex items-center bg-transparent border-b border-sky-100"
       >
         {/* Dynamic Interactive Background Design / Animations */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
+          {/* Texas Skyline Background - Made highly transparent for perfect readability and text highlight */}
           <img
             src={DALLAS_SKYLINE}
             alt="Richardson Dallas Downtown Skyline background"
-            className="w-full h-full object-cover opacity-20 filter grayscale contrast-125"
+            className="w-full h-full object-cover opacity-20 filter contrast-125 brightness-105 select-none"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/80 to-transparent z-10"></div>
-          <div className="absolute inset-0 grid-overlay opacity-25 z-20"></div>
+          {/* Light gradient fade-out which keeps the background skyline highly visible */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#f0fbf7]/95 via-[#f0fbf7]/70 to-[#f0fbf7]/30 z-10"></div>
+          <div className="absolute inset-0 grid-overlay opacity-20 z-20"></div>
 
-          {/* Live Financial Wave & Cyber Net Floating Animations (Realistic background design) */}
-          <svg className="absolute bottom-0 w-full h-[320px] opacity-35 z-25" viewBox="0 0 1440 320" fill="none">
+          {/* Gorgeous Glowing Rounded Shape (Blob) floating up & down behind the design - Made highly visible and defined */}
+          <motion.div
+            animate={{
+              y: [0, -40, 0],
+              scale: [1, 1.08, 1],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute bottom-12 right-[20%] w-[320px] h-[320px] rounded-full bg-gradient-to-tr from-sky-400/60 via-emerald-300/50 to-sky-300/50 blur-[45px] z-10 pointer-events-none select-none opacity-90"
+          />
+
+          {/* Live Financial Wave & Cyber Net Floating Animations (Realistic background design, made highly visible with beautiful custom gradients) */}
+          <svg className="absolute bottom-0 w-full h-[320px] opacity-[0.95] z-25" viewBox="0 0 1440 320" fill="none">
             {/* Wave Grid 1 */}
             <motion.path
               d="M0,160 C320,240 640,80 960,220 C1280,360 1440,180 1440,180 L1440,320 L0,320 Z"
               fill="url(#wave-gradient-glow)"
               animate={{
                 d: [
-                  "M0,160 C320,240 640,80 960,220 C1280,360 1440,180 1440,180 L1440,320 L0,320 Z",
-                  "M0,180 C320,200 640,120 960,190 C1280,260 1440,210 1440,210 L1440,320 L0,320 Z",
-                  "M0,160 C320,240 640,80 960,220 C1280,360 1440,180 1440,180 L1440,320 L0,320 Z"
+                   "M0,160 C320,240 640,80 960,220 C1280,360 1440,180 1440,180 L1440,320 L0,320 Z",
+                   "M0,180 C320,200 640,120 960,190 C1280,260 1440,210 1440,210 L1440,320 L0,320 Z",
+                   "M0,160 C320,240 640,80 960,220 C1280,360 1440,180 1440,180 L1440,320 L0,320 Z"
                 ]
               }}
               transition={{
@@ -369,14 +385,14 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                 ease: "easeInOut"
               }}
             />
-            {/* Wave Path 2 (Lime moving ribbon) */}
+            {/* Wave Path 2 (Bright custom moving ribbon) */}
             <motion.path
               d="M0,90 Q360,30 720,190 T1440,110"
-              stroke="#a3e635"
-              strokeWidth="1.5"
+              stroke="#0ea5e9"
+              strokeWidth="2.5"
               strokeDasharray="6, 12"
               fill="none"
-              opacity="0.4"
+              opacity="0.75"
               animate={{
                 strokeDashoffset: [0, -60],
                 d: [
@@ -393,15 +409,16 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
             />
             <defs>
               <linearGradient id="wave-gradient-glow" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#a3e635" stopOpacity="0.12" />
-                <stop offset="100%" stopColor="#022c22" stopOpacity="0.4" />
+                <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.45" />
+                <stop offset="50%" stopColor="#2dd4bf" stopOpacity="0.30" />
+                <stop offset="100%" stopColor="#e0f2fe" stopOpacity="0.85" />
               </linearGradient>
             </defs>
           </svg>
 
           {/* Cyber glowing dust dots blinking in background */}
-          <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-[#a3e635] rounded-full filter blur-[1px] animate-ping opacity-25" style={{ animationDuration: "3s" }}></div>
-          <div className="absolute top-2/3 right-1/3 w-2 h-2 bg-white rounded-full filter blur-[0.5px] animate-ping opacity-35" style={{ animationDuration: "5s", animationDelay: "1s" }}></div>
+          <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-sky-400 rounded-full filter blur-[1px] animate-ping opacity-35" style={{ animationDuration: "3s" }}></div>
+          <div className="absolute top-2/3 right-1/3 w-2 h-2 bg-emerald-400 rounded-full filter blur-[0.5px] animate-ping opacity-45" style={{ animationDuration: "5s", animationDelay: "1s" }}></div>
         </div>
 
         {/* Tactical interactive custom pointer "marker" */}
@@ -416,60 +433,59 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
             }}
           >
             {/* Outer sonar ping */}
-            <div className="absolute -left-10 -top-10 w-20 h-20 rounded-full border border-[#a3e635]/25 animate-ping" style={{ animationDuration: "1.8s" }}></div>
+            <div className="absolute -left-10 -top-10 w-20 h-20 rounded-full border border-sky-450/45 animate-ping" style={{ animationDuration: "1.8s" }}></div>
             {/* Dashed tech reticle */}
-            <div className="absolute -left-6 -top-6 w-12 h-12 rounded-full border border-dashed border-[#a3e635]/40 animate-spin" style={{ animationDuration: "10s" }}></div>
+            <div className="absolute -left-6 -top-6 w-12 h-12 rounded-full border border-dashed border-sky-400/50 animate-spin" style={{ animationDuration: "10s" }}></div>
             {/* Core focus dot */}
-            <div className="absolute -left-1.5 -top-1.5 w-3 h-3 bg-[#a3e635] rounded-full shadow-[0_0_12px_#a3e635] flex items-center justify-center">
+            <div className="absolute -left-1.5 -top-1.5 w-3 h-3 bg-sky-500 rounded-full shadow-[0_0_12px_rgba(14,165,233,0.8)] flex items-center justify-center">
               <div className="w-1 h-1 bg-white rounded-full"></div>
             </div>
             {/* Floating tactical holographic pixel location panel */}
-            <div className="absolute top-4 left-4 font-mono text-[9px] text-[#a3e635] whitespace-nowrap bg-emerald-950/90 py-1 px-2 rounded border border-[#a3e635]/25 backdrop-blur-sm shadow-xl flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#a3e635] animate-pulse"></span>
+            <div className="absolute top-4 left-4 font-mono text-[9px] text-sky-600 whitespace-nowrap bg-white/90 py-1 px-2 rounded border border-sky-200 backdrop-blur-sm shadow-xl flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse"></span>
               LOC: {Math.round(mousePos.x)}X, {Math.round(mousePos.y)}Y
             </div>
           </div>
         )}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-28 relative z-30 w-full">
-          <div className="max-w-3xl block space-y-6">
+          <div className="max-w-3xl block space-y-6 flex flex-col gap-6">
             
             {/* Location Badge (with custom typing state + cursor block) */}
-            <div className="inline-flex items-center gap-2 bg-[#a3e635]/15 border border-[#a3e635]/30 rounded-full px-4 py-1.5 text-xs text-[#a3e635] font-semibold tracking-wide backdrop-blur-md">
-              <MapPin className="w-3.5 h-3.5 animate-bounce" />
+            <div className="inline-flex items-center gap-2 bg-sky-50 text-sky-750 border border-sky-200 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide backdrop-blur-md shadow-sm">
+              <MapPin className="w-3.5 h-3.5 text-sky-500 animate-bounce" />
               <span>{typedLocation}</span>
-              <span className="inline-block w-1 h-3 bg-[#a3e635] ml-0.5 animate-pulse"></span>
+              <span className="inline-block w-1 h-3 bg-sky-500 ml-0.5 animate-pulse"></span>
             </div>
 
-            {/* "Certified Public Accountant" heading containing beautiful sequential typed cursor animation */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight text-white leading-[1.1] min-h-[90px] sm:min-h-[120px] md:min-h-[150px]">
+            {/* "Certified Public Accountant" heading containing beautiful sequential typed cursor animation - styled clearly in slate/sky */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight text-slate-900 leading-[1.1] min-h-[90px] sm:min-h-[120px] md:min-h-[150px]">
               {typedTitlePart1}
               {!typedTitlePart2 && typedTitlePart1.length < "Certified Public".length && (
-                <span className="inline-block w-1.5 h-8 md:h-12 bg-[#a3e635] ml-1.5 animate-pulse" />
+                <span className="inline-block w-1.5 h-8 md:h-12 bg-sky-500 ml-1.5 animate-pulse" />
               )}
               <br />
-              <span className="text-[#a3e635] drop-shadow-sm inline-flex items-center">
+              <span className="text-sky-600 drop-shadow-sm inline-flex items-center">
                 {typedTitlePart2}
                 {typedTitlePart1.length >= "Certified Public".length && (
-                  <span className="inline-block w-1.5 h-8 md:h-12 bg-[#a3e635] ml-1.5 animate-pulse" />
+                  <span className="inline-block w-1.5 h-8 md:h-12 bg-sky-500 ml-1.5 animate-pulse" />
                 )}
               </span>
             </h1>
 
-            {/* Sub-Section Tags: Glass-Effect capsules which tilt, rock and skew interactive wobble on mount hovered */}
+            {/* Sub-Section Tags: Glass-Effect capsules tweaked for clean light-mode legibility and interactive hover glow */}
             <div 
               onMouseLeave={() => setActiveHeroCategory("all")}
-              className="text-xs sm:text-sm font-bold tracking-wider font-mono text-gray-300 flex flex-wrap gap-x-4 gap-y-3.5 items-center font-sans"
+              className="text-xs sm:text-sm font-bold tracking-wider font-mono text-slate-700 flex flex-wrap gap-x-4 gap-y-3.5 items-center font-sans"
             >
               <motion.span
                 whileHover={{
                   scale: 1.12,
-                  rotate: -4,
-                  skewX: -3,
+                  rotate: -3,
                   y: -5,
-                  backgroundColor: "rgba(255, 255, 255, 0.15)",
-                  borderColor: "rgba(163, 230, 53, 0.9)",
-                  boxShadow: "0 10px 25px rgba(163, 230, 53, 0.35)",
+                  backgroundColor: "rgba(224, 242, 254, 0.9)",
+                  borderColor: "rgba(14, 165, 233, 0.8)",
+                  boxShadow: "0 10px 20px rgba(14, 165, 233, 0.15)",
                 }}
                 onMouseEnter={() => setActiveHeroCategory("financial")}
                 transition={{
@@ -477,22 +493,21 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                   stiffness: 350,
                   damping: 15,
                 }}
-                className="flex items-center gap-1 bg-white/5 backdrop-blur-md py-1.5 px-3 rounded-md border border-white/10 select-none cursor-pointer transition-all duration-300"
+                className="flex items-center gap-1 bg-white/70 backdrop-blur-md py-1.5 px-3 rounded-md border border-sky-100 select-none cursor-pointer text-slate-800 transition-all duration-300"
               >
                 Financial Plan
               </motion.span>
               
-              <span className="text-[#a3e635] opacity-60 selection:bg-transparent">•</span>
+              <span className="text-sky-450 opacity-60 selection:bg-transparent font-sans text-xs">•</span>
               
               <motion.span
                 whileHover={{
                   scale: 1.12,
-                  rotate: 4,
-                  skewX: 3,
+                  rotate: 3,
                   y: -5,
-                  backgroundColor: "rgba(255, 255, 255, 0.15)",
-                  borderColor: "rgba(163, 230, 53, 0.9)",
-                  boxShadow: "0 10px 25px rgba(163, 230, 53, 0.35)",
+                  backgroundColor: "rgba(224, 242, 254, 0.9)",
+                  borderColor: "rgba(14, 165, 233, 0.8)",
+                  boxShadow: "0 10px 20px rgba(14, 165, 233, 0.15)",
                 }}
                 onMouseEnter={() => setActiveHeroCategory("growth")}
                 transition={{
@@ -500,22 +515,21 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                   stiffness: 350,
                   damping: 15,
                 }}
-                className="flex items-center gap-1 bg-white/5 backdrop-blur-md py-1.5 px-3 rounded-md border border-white/10 select-none cursor-pointer transition-all duration-300"
+                className="flex items-center gap-1 bg-white/70 backdrop-blur-md py-1.5 px-3 rounded-md border border-sky-100 select-none cursor-pointer text-slate-800 transition-all duration-300"
               >
                 Business Growth
               </motion.span>
               
-              <span className="text-[#a3e635] opacity-60 selection:bg-transparent">•</span>
+              <span className="text-sky-450 opacity-60 selection:bg-transparent font-sans text-xs">•</span>
               
               <motion.span
                 whileHover={{
                   scale: 1.12,
-                  rotate: -4,
-                  skewX: -3,
+                  rotate: -3,
                   y: -5,
-                  backgroundColor: "rgba(255, 255, 255, 0.15)",
-                  borderColor: "rgba(163, 230, 53, 0.9)",
-                  boxShadow: "0 10px 25px rgba(163, 230, 53, 0.35)",
+                  backgroundColor: "rgba(224, 242, 254, 0.9)",
+                  borderColor: "rgba(14, 165, 233, 0.8)",
+                  boxShadow: "0 10px 20px rgba(14, 165, 233, 0.15)",
                 }}
                 onMouseEnter={() => setActiveHeroCategory("tax")}
                 transition={{
@@ -523,22 +537,21 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                   stiffness: 350,
                   damping: 15,
                 }}
-                className="flex items-center gap-1 bg-white/5 backdrop-blur-md py-1.5 px-3 rounded-md border border-white/10 select-none cursor-pointer transition-all duration-300"
+                className="flex items-center gap-1 bg-white/70 backdrop-blur-md py-1.5 px-3 rounded-md border border-sky-100 select-none cursor-pointer text-slate-800 transition-all duration-300"
               >
                 Tax Solution
               </motion.span>
               
-              <span className="text-[#a3e635] opacity-60 selection:bg-transparent">•</span>
+              <span className="text-sky-450 opacity-60 selection:bg-transparent font-sans text-xs">•</span>
               
               <motion.span
                 whileHover={{
                   scale: 1.12,
-                  rotate: 4,
-                  skewX: 3,
+                  rotate: 3,
                   y: -5,
-                  backgroundColor: "rgba(255, 255, 255, 0.15)",
-                  borderColor: "rgba(163, 230, 53, 0.9)",
-                  boxShadow: "0 10px 25px rgba(163, 230, 53, 0.35)",
+                  backgroundColor: "rgba(224, 242, 254, 0.9)",
+                  borderColor: "rgba(14, 165, 233, 0.8)",
+                  boxShadow: "0 10px 20px rgba(14, 165, 233, 0.15)",
                 }}
                 onMouseEnter={() => setActiveHeroCategory("quickbooks")}
                 transition={{
@@ -546,13 +559,13 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                   stiffness: 350,
                   damping: 15,
                 }}
-                className="flex items-center gap-1 bg-white/5 backdrop-blur-md py-1.5 px-3 rounded-md border border-white/10 select-none cursor-pointer transition-all duration-300"
+                className="flex items-center gap-1 bg-white/70 backdrop-blur-md py-1.5 px-3 rounded-md border border-sky-100 select-none cursor-pointer text-slate-800 transition-all duration-300"
               >
                 QuickBooks Service
               </motion.span>
             </div>
 
-            {/* Short Description: Reveals elegantly after titles finish typing, and cross-fades on hovering categories */}
+            {/* Short Description: Highly readable color on light themes with soft fade-in on interactions */}
             <div className="relative min-h-[84px] md:min-h-[72px] flex items-center justify-start pt-2">
               <AnimatePresence mode="wait">
                 <motion.p
@@ -561,32 +574,32 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                   animate={isPart2Finished ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 10, filter: "blur(4px)" }}
                   exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
                   transition={{ duration: 0.25, ease: "easeInOut" }}
-                  className="text-sm sm:text-base leading-relaxed text-gray-200 max-w-2xl font-normal font-sans"
+                  className="text-sm sm:text-base leading-relaxed text-slate-700 max-w-2xl font-medium font-sans"
                 >
                   {getHeroDescriptionText()}
                 </motion.p>
               </AnimatePresence>
             </div>
 
-            {/* Action Buttons: Filled interactive background swap on hovered state */}
-            <div className="grid grid-cols-1 sm:flex items-center gap-4 pt-4 font-sans">
+            {/* Action Buttons: Redesigned for maximum visibility, vibrant colors and perfect contrast */}
+            <div className="grid grid-cols-1 sm:flex items-center gap-4 pt-4 font-sans relative z-30">
               <button
                 id="hero-email-me-btn"
                 onClick={() => {
                   setActiveTab("consultation");
                   triggerScheduler("General Advisory Booking");
                 }}
-                className="bg-[#a3e635] hover:bg-transparent text-emerald-950 hover:text-[#a3e635] border-2 border-[#a3e635] font-bold text-sm px-7 py-3.5 rounded-full transition-all duration-300 text-center cursor-pointer shadow-xl shadow-[#a3e635]/15 flex items-center justify-center gap-2 transform active:scale-95"
+                className="bg-sky-600 hover:bg-sky-700 border-2 border-sky-600 hover:border-sky-700 text-white font-bold text-sm px-7 py-3.5 rounded-full transition-all duration-300 text-center cursor-pointer shadow-lg shadow-sky-500/20 flex items-center justify-center gap-2 transform active:scale-95"
               >
-                Book Consultation <ChevronRight className="w-4 h-4" />
+                Book Consultation <ChevronRight className="w-4 h-4 ml-0.5" />
               </button>
 
               <a
                 href="tel:214-256-4111"
-                className="bg-white/10 hover:bg-white/15 text-white font-semibold text-sm px-6 py-3.5 rounded-full transition-all border border-white/20 text-center flex items-center justify-center gap-2 cursor-pointer transform active:scale-95"
+                className="bg-white hover:bg-sky-50 text-sky-700 hover:text-sky-850 font-bold text-sm px-6 py-3.5 rounded-full transition-all border-2 border-sky-400 hover:border-sky-500 text-center flex items-center justify-center gap-2 cursor-pointer transform active:scale-95 shadow-md hover:shadow-lg"
               >
-                <Phone className="w-4 h-4 text-[#a3e635]" />
-                214-256-4111
+                <Phone className="w-4 h-4 text-sky-500 animate-pulse" />
+                <span className="text-sky-700">214-256-4111</span>
               </a>
             </div>
             

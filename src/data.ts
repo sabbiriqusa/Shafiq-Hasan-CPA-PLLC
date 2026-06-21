@@ -1,6 +1,6 @@
 import { Service, TeamMember, TaxProblem, Testimonial, BlogPost, FAQItem, GoogleReview } from "./types";
 
-export const DALLAS_SKYLINE = new URL("./assets/images/dallas_skyline_1781632263259.jpg", import.meta.url).href;
+export const DALLAS_SKYLINE = new URL("./assets/images/dallas_skyline_clean_1782060657267.jpg", import.meta.url).href;
 export const SHAFIQ_HASAN_PORTRAIT = new URL("./assets/images/shafiq_hasan_1781632281576.jpg", import.meta.url).href;
 export const TAX_CHART_ILLUSTRATION = new URL("./assets/images/tax_planning_chart_1781632301674.jpg", import.meta.url).href;
 

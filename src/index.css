@@ -10,8 +10,8 @@
   --color-brand-accent: #0ea5e9;
 }
 
-/* Color Scheme Redesign: Sky Blue / Aquatic Palette with Gradients */
-:root {
+/* Color Scheme Redesign: Sky Blue / Aquatic Palette with Gradients (FORCE LIGHT THEMING ONLY) */
+:root, .dark {
   --brand-primary: #0284c7;            /* Blue Primary */
   --brand-primary-rgb: 2, 132, 199;
   --brand-accent: #0ea5e9;             /* Sky Blue Accent */
@@ -23,36 +23,22 @@
   --text-main: #0f172a;
   --text-muted: #475569;
   
-  --header-bg: #032b45;                /* Dark ocean deep blue header */
-  --header-grid: rgba(56, 189, 248, 0.08);
-  --btn-consult: #38bdf8;              /* Soft sky highlight */
-  --btn-consult-hover: #0ea5e9;
-  --btn-consult-text: #052336;
-}
-
-/* Dark Theme Variables */
-.dark {
-  --brand-primary: #38bdf8;            /* Bright sky blue in dark mode */
-  --brand-primary-rgb: 56, 189, 248;
-  --brand-accent: #06b6d4;             /* Aquatic dark cyan */
-  --brand-accent-rgb: 6, 182, 212;
-  --brand-accent-light: rgba(6, 182, 212, 0.15);
-  
-  --bg-home: #030712;                  /* Midnight ocean blue/slate */
-  --bg-card: #0c152a;                  /* Sleek deep sea card base */
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  
-  --header-bg: #020617;
-  --header-grid: rgba(6, 182, 212, 0.08);
-  --btn-consult: #0284c7;
-  --btn-consult-hover: #0369a1;
+  --header-bg: #e0f2fe;                /* Soft light blue header bg */
+  --header-grid: rgba(14, 165, 233, 0.12);
+  --btn-consult: #0ea5e9;              /* Bright sky highlight */
+  --btn-consult-hover: #0284c7;
   --btn-consult-text: #ffffff;
 }
 
 /* Overwrite page-wide variables */
 body {
-  background-color: var(--bg-home);
+  background-color: #f0fbf7;
+  background-image: 
+    linear-gradient(to right, rgba(14, 165, 233, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(14, 165, 233, 0.04) 1px, transparent 1px),
+    linear-gradient(135deg, #e6f9f3 0%, #f0fbf7 50%, #e0f2fe 100%);
+  background-size: 24px 24px, 24px 24px, 100% 100%;
+  background-attachment: fixed;
   color: var(--text-main);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -60,10 +46,10 @@ body {
 /* Clean global resets for selections */
 ::selection {
   background-color: var(--brand-accent) !important;
-  color: #052336 !important;
+  color: #ffffff !important;
 }
 
-/* Overwrite exact hex colors dynamically */
+/* Overwrite exact hex colors dynamically to force a light sky blue aquatic aesthetic */
 
 /* Backgrounds */
 .bg-\[\#fafdfa\] {
@@ -72,20 +58,22 @@ body {
 }
 .dark .bg-\[\#fafdfa\] {
   background-color: var(--bg-home) !important;
-  background-image: linear-gradient(180deg, var(--bg-home) 0%, #030712 100%) !important;
+  background-image: linear-gradient(180deg, var(--bg-home) 0%, rgba(var(--brand-primary-rgb), 0.03) 100%) !important;
 }
 
+/* Header background styled as beautiful light sky blue with smooth gradients */
 .bg-\[\#0c2415\] {
-  background-color: var(--header-bg) !important;
-  background-image: linear-gradient(135deg, var(--header-bg) 0%, #021221 100%) !important;
-  border-color: rgba(var(--brand-primary-rgb), 0.2) !important;
+  background: linear-gradient(135deg, #dbeafe 0%, #ecf3fa 50%, #e0f2fe 100%) !important;
+  border-color: rgba(14, 165, 233, 0.25) !important;
 }
 
 .bg-\[\#0b2512\] {
-  background-color: var(--brand-primary) !important;
+  background-color: transparent !important;
+  background-image: linear-gradient(135deg, rgba(230,249,240,0.8) 0%, rgba(240,251,247,0.8) 50%, rgba(224,242,254,0.8) 100%) !important;
+  color: #0f172a !important;
 }
 .bg-\[\#0b2512\]\/45, .bg-\[\#0b2512\]\/50 {
-  background-color: rgba(var(--brand-primary-rgb), 0.45) !important;
+  background-color: rgba(var(--brand-primary-rgb), 0.1) !important;
 }
 
 .bg-\[\#a3e635\] {
@@ -110,47 +98,128 @@ body {
 }
 
 .bg-emerald-950 {
-  background-color: #032b45 !important;
+  background: linear-gradient(135deg, #dbeafe 0%, #f0f9ff 50%, #eff6ff 100%) !important;
 }
 
-/* Special Section Backgrounds representing soft aquatic gradients */
+/* Special Section Backgrounds representing soft aquatic light sky blue/aquatic gradients */
 .bg-\[\#021008\] {
-  background-color: #031c2e !important;
-  background-image: linear-gradient(155deg, #021526 0%, #032b45 100%) !important;
+  background-color: transparent !important;
+  background-image: linear-gradient(155deg, rgba(230,249,240,0.7) 0%, rgba(224,242,254,0.7) 100%) !important;
 }
 .bg-\[\#020d06\] {
-  background-color: #021221 !important;
-  background-image: linear-gradient(145deg, #010a15 0%, #031c2ef0 100%) !important;
+  background-color: transparent !important;
+  background-image: linear-gradient(145deg, rgba(240,251,247,0.7) 0%, rgba(224,242,254,0.7) 100%) !important;
 }
 .bg-\[\#011409\] {
-  background-color: #01192d !important;
-  background-image: linear-gradient(150deg, #020d18 0%, #05263d 100%) !important;
+  background-color: transparent !important;
+  background-image: linear-gradient(150deg, rgba(230,249,240,0.7) 0%, rgba(224,242,254,0.7) 100%) !important;
 }
 .bg-\[\#06180a\] {
-  background-color: #031e30 !important;
+  background-color: #f0f9ff !important;
 }
 .bg-\[\#04160a\] {
-  background-color: #021f35 !important;
+  background-color: #bae6fd !important;
 }
 .bg-\[\#0a2310\] {
-  background-color: #05263b !important;
+  background-color: #e0f2fe !important;
+}
+
+/* Intercept 3D/ambient grid dark blocks and turn them light */
+div[class*="from-neutral-900"][class*="to-emerald-950"],
+.bg-gradient-to-br.from-neutral-900.to-emerald-950,
+.from-neutral-900.to-emerald-950 {
+  background-image: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%) !important;
+  color: #0f172a !important;
+}
+
+/* Also map About Page's Founder cover to elegant light gradient */
+div[class*="from-\[\#0b2512\]"][class*="to-black"],
+.from-\[\#0b2512\].to-black {
+  background-image: linear-gradient(135deg, #dbf9eb 0%, #ecfbf7 50%, #e4f2fe 100%) !important;
+  color: #0f172a !important;
+  border-color: rgba(14, 165, 233, 0.15) !important;
+}
+
+/* Ensure absolute legibility on converted sections by forcing dark-slate text */
+.bg-\[\#011409\], 
+.bg-\[\#0c2415\], 
+.bg-\[\#021008\], 
+.bg-\[\#020d06\],
+.bg-\[\#0b2512\],
+.bg-emerald-950,
+#talent-card-founder,
+#brilliant-services,
+#talents-team-grid {
+  color: #0f172a !important;
+}
+
+.bg-\[\#011409\] h1, .bg-\[\#011409\] h2, .bg-\[\#011409\] h3, .bg-\[\#011409\] h4,
+.bg-\[\#021008\] h1, .bg-\[\#021008\] h2, .bg-\[\#021008\] h3, .bg-\[\#021008\] h4,
+.bg-\[\#020d06\] h1, .bg-\[\#020d06\] h2, .bg-\[\#020d06\] h3, .bg-\[\#020d06\] h4,
+.bg-\[\#0b2512\] h1, .bg-\[\#0b2512\] h2, .bg-\[\#0b2512\] h3, .bg-\[\#0b2512\] h4, .bg-\[\#0b2512\] span,
+.bg-\[\#0c2415\] h1, .bg-\[\#0c2415\] h2, .bg-\[\#0c2415\] h3, .bg-\[\#0c2415\] span,
+.bg-emerald-950 h1, .bg-emerald-950 h2, .bg-emerald-950 h3, .bg-emerald-950 p, .bg-emerald-950 span,
+#talent-card-founder h2, #talent-card-founder h3, #talent-card-founder p, #talent-card-founder span,
+#brilliant-services h1, #brilliant-services h2, #brilliant-services h3,
+#talents-team-grid h1, #talents-team-grid h2, #talents-team-grid h3 {
+  color: #0f172a !important;
+}
+
+.bg-\[\#011409\] p, 
+.bg-\[\#021008\] p, 
+.bg-\[\#020d06\] p,
+.bg-\[\#0b2512\] p, .bg-\[\#0b2512\] a,
+.bg-\[\#0c2415\] p,
+.bg-emerald-950 li,
+.bg-emerald-950 text {
+  color: #1e293b !important;
+}
+
+/* Prevent white or bright green texts inside light sections */
+.bg-\[\#011409\] .text-zinc-300, .bg-\[\#011409\] .text-zinc-400, .bg-\[\#011409\] .text-\[\#38bdf8\], .bg-\[\#011409\] .text-[#38bdf8],
+.bg-\[\#021008\] .text-zinc-350, .bg-\[\#021008\] .text-zinc-300, .bg-\[\#021008\] .text-zinc-400,
+.bg-\[\#020d06\] .text-zinc-300, .bg-\[\#020d06\] .text-zinc-400,
+#talent-card-founder .text-zinc-300, #talent-card-founder .text-zinc-400 {
+  color: #475569 !important;
+}
+
+.bg-\[\#011409\] .text-white, 
+.bg-\[\#021008\] .text-white, 
+.bg-\[\#020d06\] .text-white, 
+.bg-\[\#0c2415\] .text-white {
+  color: #0f172a !important;
+}
+
+/* Card overrides to render as beautiful, shiny light cards on light sections */
+.bg-white\/\[0\.02\] {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  border-color: rgba(14, 165, 233, 0.16) !important;
+}
+.bg-white\/\[0\.08\] {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: #0ea5e9 !important;
+}
+.bg-white\/\[0\.01\] {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(14, 165, 233, 0.14) !important;
 }
 
 /* Overriding Emerald Gradients dynamically to Teal/Ocean Cyan */
 .from-emerald-950, [class*="from-emerald"] {
-  --tw-gradient-from: #021829 !important;
-  --tw-gradient-to: rgba(2, 24, 41, 0) !important;
+  --tw-gradient-from: #e0f2fe !important;
+  --tw-gradient-to: rgba(224, 242, 254, 0) !important;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
 }
 .via-emerald-950\/80 {
-  --tw-gradient-to: rgba(2, 24, 41, 0.8) !important;
-  --tw-gradient-stops: var(--tw-gradient-from), rgba(2, 24, 41, 0.8), var(--tw-gradient-to) !important;
+  --tw-gradient-to: rgba(224, 242, 254, 0.8) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), rgba(224, 242, 254, 0.8), var(--tw-gradient-to) !important;
 }
 .from-emerald-900\/90 {
-  --tw-gradient-from: rgba(3, 30, 50, 0.9) !important;
+  --tw-gradient-from: rgba(224, 242, 254, 0.9) !important;
 }
 .to-emerald-950\/90 {
-  --tw-gradient-to: rgba(2, 24, 41, 0.9) !important;
+  --tw-gradient-to: rgba(224, 242, 254, 0.9) !important;
 }
 .from-emerald-500\/5 {
   --tw-gradient-from: rgba(14, 165, 233, 0.05) !important;
@@ -170,7 +239,7 @@ body {
   color: var(--brand-accent) !important;
 }
 .text-emerald-950 {
-  color: #052336 !important;
+  color: #034f75 !important;
 }
 .text-emerald-800 {
   color: var(--brand-primary) !important;
@@ -234,7 +303,7 @@ body {
   border-color: rgba(var(--brand-accent-rgb), 0.2) !important;
 }
 
-/* Global Dark Mode adjustments for standard classes */
+/* Global Dark Mode adjustments to align with the pristine light theme */
 .dark .bg-white {
   background-color: var(--bg-card) !important;
   border-color: rgba(var(--brand-primary-rgb), 0.15) !important;
