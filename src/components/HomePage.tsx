@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { MapPin, ChevronRight, Phone, TrendingUp, Cpu, Globe, Quote, Star, ShieldCheck, ArrowUpRight, ArrowRight, Folder, FolderOpen, Download, Lock, Unlock, Sparkles } from "lucide-react";
 import { 
   testimonialsData, 
+  googleReviewsData,
   DALLAS_SKYLINE, 
   SHAFIQ_HASAN_PORTRAIT, 
   INDIVIDUAL_SERVICE_IMG, 
@@ -184,6 +185,21 @@ interface HomePageProps {
 }
 
 export default function HomePage({ setActiveTab, triggerScheduler }: HomePageProps) {
+  // Google Reviews Search and Filter States
+  const [reviewSearch, setReviewSearch] = React.useState("");
+  const [reviewRatingFilter, setReviewRatingFilter] = React.useState<number | "all">("all");
+
+  const filteredReviews = React.useMemo(() => {
+    return googleReviewsData.filter((review) => {
+      const matchesSearch = 
+        review.author.toLowerCase().includes(reviewSearch.toLowerCase()) ||
+        review.text.toLowerCase().includes(reviewSearch.toLowerCase()) ||
+        review.serviceTag.toLowerCase().includes(reviewSearch.toLowerCase());
+      const matchesRating = reviewRatingFilter === "all" || review.rating === reviewRatingFilter;
+      return matchesSearch && matchesRating;
+    });
+  }, [reviewSearch, reviewRatingFilter]);
+
   // 1. Dynamic Mouse Follower Tracker & Locator for the Hero Area
   const [mousePos, setMousePos] = React.useState({ x: 0, y: 0, opacity: 0, active: false });
   const sectionRef = React.useRef<HTMLDivElement>(null);
@@ -629,12 +645,10 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                   setActiveTab("services");
                   triggerScheduler("Individual Tax Consultation Request");
                 }}
-                className={`bg-white/[0.02] backdrop-blur-md border rounded-[32px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-2xl transition-all duration-500 relative group cursor-pointer ${
+                className={`bg-white/[0.02] backdrop-blur-md border rounded-[32px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-2xl transition-all duration-300 relative group cursor-pointer ${
                   hoveredServiceIdx === 0 
-                  ? "border-[#a3e635]/50 bg-white/[0.08] scale-[1.03] shadow-[0_20px_50px_rgba(163,230,53,0.15)] z-10 blur-none opacity-100" 
-                  : hoveredServiceIdx !== null 
-                    ? "border-white/5 opacity-25 filter blur-[4px] scale-[0.97]" 
-                    : "border-white/10 opacity-100"
+                  ? "border-[#a3e635]/65 bg-white/[0.08] -translate-y-2 scale-[1.02] shadow-[0_20px_50px_rgba(163,230,53,0.2)] z-10" 
+                  : "border-white/10 opacity-100"
                 }`}
               >
                 <div className="space-y-4 mb-8">
@@ -667,12 +681,10 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                   setActiveTab("services");
                   triggerScheduler("Corporate Advisory Engagement");
                 }}
-                className={`bg-white/[0.02] backdrop-blur-md border rounded-[32px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-2xl transition-all duration-500 relative group cursor-pointer ${
+                className={`bg-white/[0.02] backdrop-blur-md border rounded-[32px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-2xl transition-all duration-300 relative group cursor-pointer ${
                   hoveredServiceIdx === 1 
-                  ? "border-[#a3e635]/50 bg-white/[0.08] scale-[1.03] shadow-[0_20px_50px_rgba(163,230,53,0.15)] z-10 blur-none opacity-100" 
-                  : hoveredServiceIdx !== null 
-                    ? "border-white/5 opacity-25 filter blur-[4px] scale-[0.97]" 
-                    : "border-white/10 opacity-100"
+                  ? "border-[#a3e635]/65 bg-white/[0.08] -translate-y-2 scale-[1.02] shadow-[0_20px_50px_rgba(163,230,53,0.2)] z-10" 
+                  : "border-white/10 opacity-100"
                 }`}
               >
                 <div className="space-y-4 mb-8">
@@ -705,12 +717,10 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                   setActiveTab("services");
                   triggerScheduler("QuickBooks Setup Session");
                 }}
-                className={`bg-white/[0.02] backdrop-blur-md border rounded-[32px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-2xl transition-all duration-500 relative group cursor-pointer ${
+                className={`bg-white/[0.02] backdrop-blur-md border rounded-[32px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-2xl transition-all duration-300 relative group cursor-pointer ${
                   hoveredServiceIdx === 2 
-                  ? "border-[#a3e635]/50 bg-white/[0.08] scale-[1.03] shadow-[0_20px_50px_rgba(163,230,53,0.15)] z-10 blur-none opacity-100" 
-                  : hoveredServiceIdx !== null 
-                    ? "border-white/5 opacity-25 filter blur-[4px] scale-[0.97]" 
-                    : "border-white/10 opacity-100"
+                  ? "border-[#a3e635]/65 bg-white/[0.08] -translate-y-2 scale-[1.02] shadow-[0_20px_50px_rgba(163,230,53,0.2)] z-10" 
+                  : "border-white/10 opacity-100"
                 }`}
               >
                 <div className="space-y-4 mb-8">
@@ -743,12 +753,10 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                   setActiveTab("services");
                   triggerScheduler("Tech & Tax System Audit");
                 }}
-                className={`bg-white/[0.02] backdrop-blur-md border rounded-[32px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-2xl transition-all duration-500 relative group cursor-pointer ${
+                className={`bg-white/[0.02] backdrop-blur-md border rounded-[32px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-2xl transition-all duration-300 relative group cursor-pointer ${
                   hoveredServiceIdx === 3 
-                  ? "border-[#a3e635]/50 bg-white/[0.08] scale-[1.03] shadow-[0_20px_50px_rgba(163,230,53,0.15)] z-10 blur-none opacity-100" 
-                  : hoveredServiceIdx !== null 
-                    ? "border-white/5 opacity-25 filter blur-[4px] scale-[0.97]" 
-                    : "border-white/10 opacity-100"
+                  ? "border-[#a3e635]/65 bg-white/[0.08] -translate-y-2 scale-[1.02] shadow-[0_20px_50px_rgba(163,230,53,0.2)] z-10" 
+                  : "border-white/10 opacity-100"
                 }`}
               >
                 <div className="space-y-4 mb-8">
@@ -1131,9 +1139,7 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
               onMouseLeave={() => setHoveredTalentIdx(null)}
               className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
               id="team-container-grid"
-            >
-              
-              {/* Left Card: 5 columns in grid - Founder Card */}
+            >              {/* Left Card: 5 columns in grid - Founder Card */}
               <div 
                 id="talent-card-founder"
                 onMouseEnter={() => setHoveredTalentIdx(0)}
@@ -1141,12 +1147,10 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                   setActiveTab("about");
                   triggerScheduler("Founder Advisory Booking");
                 }}
-                className={`lg:col-span-5 bg-white/[0.02] backdrop-blur-md border rounded-[32px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-2xl transition-all duration-500 relative group cursor-pointer ${
+                className={`lg:col-span-5 bg-white/[0.02] backdrop-blur-md border rounded-[32px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-2xl transition-all duration-300 relative group cursor-pointer ${
                   hoveredTalentIdx === 0 
-                  ? "border-[#a3e635]/50 bg-white/[0.08] scale-[1.03] shadow-[0_20px_50px_rgba(163,230,53,0.15)] z-10 blur-none opacity-100" 
-                  : hoveredTalentIdx !== null 
-                    ? "border-white/5 opacity-25 filter blur-[4px] scale-[0.97]" 
-                    : "border-white/10 opacity-100"
+                  ? "border-[#a3e635]/65 bg-white/[0.08] -translate-y-2 scale-[1.02] shadow-[0_20px_50px_rgba(163,230,53,0.2)] z-10" 
+                  : "border-white/10 opacity-100"
                 }`}
               >
                 <div className="space-y-6">
@@ -1178,12 +1182,10 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                 <div 
                   id="talent-card-member1"
                   onMouseEnter={() => setHoveredTalentIdx(1)}
-                  className={`bg-white/[0.02] backdrop-blur-md border rounded-[28px] p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-xl transition-all duration-500 relative group cursor-pointer ${
+                  className={`bg-white/[0.02] backdrop-blur-md border rounded-[28px] p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-xl transition-all duration-300 relative group cursor-pointer ${
                     hoveredTalentIdx === 1 
-                    ? "border-[#a3e635]/50 bg-white/[0.08] scale-[1.03] shadow-[0_20px_50px_rgba(163,230,53,0.15)] z-10 blur-none opacity-100" 
-                    : hoveredTalentIdx !== null 
-                      ? "border-white/5 opacity-25 filter blur-[3px] scale-[0.97]" 
-                      : "border-white/10 opacity-100"
+                    ? "border-[#a3e635]/65 bg-white/[0.08] -translate-y-2 scale-[1.02] shadow-[0_20px_50px_rgba(163,230,53,0.2)] z-10" 
+                    : "border-white/10 opacity-100"
                   }`}
                 >
                   <img
@@ -1201,12 +1203,10 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                 <div 
                   id="talent-card-member2"
                   onMouseEnter={() => setHoveredTalentIdx(2)}
-                  className={`bg-white/[0.02] backdrop-blur-md border rounded-[28px] p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-xl transition-all duration-500 relative group cursor-pointer ${
+                  className={`bg-white/[0.02] backdrop-blur-md border rounded-[28px] p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-xl transition-all duration-300 relative group cursor-pointer ${
                     hoveredTalentIdx === 2 
-                    ? "border-[#a3e635]/50 bg-white/[0.08] scale-[1.03] shadow-[0_20px_50px_rgba(163,230,53,0.15)] z-10 blur-none opacity-100" 
-                    : hoveredTalentIdx !== null 
-                      ? "border-white/5 opacity-25 filter blur-[3px] scale-[0.97]" 
-                      : "border-white/10 opacity-100"
+                    ? "border-[#a3e635]/65 bg-white/[0.08] -translate-y-2 scale-[1.02] shadow-[0_20px_50px_rgba(163,230,53,0.2)] z-10" 
+                    : "border-white/10 opacity-100"
                   }`}
                 >
                   <img
@@ -1224,12 +1224,10 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                 <div 
                   id="talent-card-member3"
                   onMouseEnter={() => setHoveredTalentIdx(3)}
-                  className={`bg-white/[0.02] backdrop-blur-md border rounded-[28px] p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-xl transition-all duration-500 relative group cursor-pointer ${
+                  className={`bg-white/[0.02] backdrop-blur-md border rounded-[28px] p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-xl transition-all duration-300 relative group cursor-pointer ${
                     hoveredTalentIdx === 3 
-                    ? "border-[#a3e635]/50 bg-white/[0.08] scale-[1.03] shadow-[0_20px_50px_rgba(163,230,53,0.15)] z-10 blur-none opacity-100" 
-                    : hoveredTalentIdx !== null 
-                      ? "border-white/5 opacity-25 filter blur-[3px] scale-[0.97]" 
-                      : "border-white/10 opacity-100"
+                    ? "border-[#a3e635]/65 bg-white/[0.08] -translate-y-2 scale-[1.02] shadow-[0_20px_50px_rgba(163,230,53,0.2)] z-10" 
+                    : "border-white/10 opacity-100"
                   }`}
                 >
                   <img
@@ -1247,12 +1245,10 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                 <div 
                   id="talent-card-member4"
                   onMouseEnter={() => setHoveredTalentIdx(4)}
-                  className={`bg-white/[0.02] backdrop-blur-md border rounded-[28px] p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-xl transition-all duration-500 relative group cursor-pointer ${
+                  className={`bg-white/[0.02] backdrop-blur-md border rounded-[28px] p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-xl transition-all duration-300 relative group cursor-pointer ${
                     hoveredTalentIdx === 4 
-                    ? "border-[#a3e635]/50 bg-white/[0.08] scale-[1.03] shadow-[0_20px_50px_rgba(163,230,53,0.15)] z-10 blur-none opacity-100" 
-                    : hoveredTalentIdx !== null 
-                      ? "border-white/5 opacity-25 filter blur-[3px] scale-[0.97]" 
-                      : "border-white/10 opacity-100"
+                    ? "border-[#a3e635]/65 bg-white/[0.08] -translate-y-2 scale-[1.02] shadow-[0_20px_50px_rgba(163,230,53,0.2)] z-10" 
+                    : "border-white/10 opacity-100"
                   }`}
                 >
                   <img
@@ -1267,7 +1263,6 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
                 </div>
 
               </div>
-
             </div>
           </motion.div>
 
@@ -1299,164 +1294,164 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
             </p>
           </div>
 
-          {/* Scrolling Marquee Container with pause-on-hover capabilities */}
-          <div className="space-y-8 select-none group-pause relative">
-            
-            {/* Row 1: Right to Left */}
-            <div className="w-full overflow-hidden flex relative py-2">
-              {/* Fade masks to look elegant */}
-              <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#fafdfa] to-transparent z-10 pointer-events-none"></div>
-              <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#fafdfa] to-transparent z-10 pointer-events-none"></div>
+          {/* Scrolling Testimonial Marquees - restored to full width */}
+          <div className="w-full mt-10 space-y-8 select-none group-pause relative flex flex-col justify-center">
               
-              <div className="animate-marquee [--marquee-duration:35s] flex gap-6 pr-6">
-                {testimonialsData.slice(0, 9).map((test, index) => (
-                  <div
-                    key={`${test.id}-r1-${index}`}
-                    className="w-[320px] sm:w-[380px] shrink-0 bg-white border border-gray-150 p-6 sm:p-7 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.015)] hover:shadow-xl hover:border-[#a3e635]/60 hover:scale-[1.03] active:scale-95 transition-all duration-300 flex flex-col justify-between cursor-pointer"
-                  >
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <Quote className="w-6 h-6 text-[#a3e635]" />
-                        <div className="flex gap-0.5 text-yellow-500">
-                          {[...Array(test.rating || 5)].map((_, i) => (
-                            <Star key={i} className="w-3 h-3 fill-yellow-400 text-transparent" />
-                          ))}
+              {/* Row 1: Right to Left */}
+              <div className="w-full overflow-hidden flex relative py-2">
+                {/* Fade masks to look elegant */}
+                <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#fafdfa] to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#fafdfa] to-transparent z-10 pointer-events-none"></div>
+                
+                <div className="animate-marquee [--marquee-duration:35s] flex gap-6 pr-6">
+                  {testimonialsData.slice(0, 9).map((test, index) => (
+                    <div
+                      key={`${test.id}-r1-${index}`}
+                      className="w-[320px] sm:w-[380px] shrink-0 bg-white border border-gray-150 p-6 sm:p-7 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.015)] hover:shadow-xl hover:border-[#a3e635]/60 hover:scale-[1.03] active:scale-95 transition-all duration-300 flex flex-col justify-between cursor-pointer"
+                    >
+                      <div className="space-y-4">
+                        <div className="flex justify-between items-center">
+                          <Quote className="w-6 h-6 text-[#a3e635]" />
+                          <div className="flex gap-0.5 text-yellow-500">
+                            {[...Array(test.rating || 5)].map((_, i) => (
+                              <Star key={i} className="w-3 h-3 fill-yellow-400 text-transparent" />
+                            ))}
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-600 leading-relaxed italic font-normal">
+                          &ldquo;{test.quote}&rdquo;
+                        </p>
+                      </div>
+
+                      <div className="pt-4 mt-4 border-t border-gray-100 flex items-center gap-3">
+                        <img
+                          src={test.avatar}
+                          alt={`${test.author}, testimonial`}
+                          className="w-10 h-10 rounded-full object-cover shadow-sm bg-gray-50 shrink-0 border border-gray-200"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div className="min-w-0">
+                          <h4 className="text-xs font-bold text-gray-900 truncate">{test.author}</h4>
+                          <p className="text-[10px] text-gray-500 font-semibold truncate">{test.role} · {test.company}</p>
                         </div>
                       </div>
-                      <p className="text-xs text-gray-600 leading-relaxed italic font-normal">
-                        &ldquo;{test.quote}&rdquo;
-                      </p>
                     </div>
-
-                    <div className="pt-4 mt-4 border-t border-gray-100 flex items-center gap-3">
-                      <img
-                        src={test.avatar}
-                        alt={`${test.author}, testimonial`}
-                        className="w-10 h-10 rounded-full object-cover shadow-sm bg-gray-50 shrink-0 border border-gray-200"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className="min-w-0">
-                        <h4 className="text-xs font-bold text-gray-900 truncate">{test.author}</h4>
-                        <p className="text-[10px] text-gray-500 font-semibold truncate">{test.role} · {test.company}</p>
+                  ))}
+                  {/* Duplicate row 1 for seamless infinite looping */}
+                  {testimonialsData.slice(0, 9).map((test, index) => (
+                    <div
+                      key={`${test.id}-r1-dup-${index}`}
+                      className="w-[320px] sm:w-[380px] shrink-0 bg-white border border-gray-150 p-6 sm:p-7 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.015)] hover:shadow-xl hover:border-[#a3e635]/60 hover:scale-[1.03] active:scale-95 transition-all duration-300 flex flex-col justify-between cursor-pointer"
+                    >
+                      <div className="space-y-4">
+                        <div className="flex justify-between items-center">
+                          <Quote className="w-6 h-6 text-[#a3e635]" />
+                          <div className="flex gap-0.5 text-yellow-500">
+                            {[...Array(test.rating || 5)].map((_, i) => (
+                              <Star key={i} className="w-3 h-3 fill-yellow-400 text-transparent" />
+                            ))}
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-600 leading-relaxed italic font-normal">
+                          &ldquo;{test.quote}&rdquo;
+                        </p>
                       </div>
-                    </div>
-                  </div>
-                ))}
-                {/* Duplicate row 1 for seamless infinite looping */}
-                {testimonialsData.slice(0, 9).map((test, index) => (
-                  <div
-                    key={`${test.id}-r1-dup-${index}`}
-                    className="w-[320px] sm:w-[380px] shrink-0 bg-white border border-gray-150 p-6 sm:p-7 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.015)] hover:shadow-xl hover:border-[#a3e635]/60 hover:scale-[1.03] active:scale-95 transition-all duration-300 flex flex-col justify-between cursor-pointer"
-                  >
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <Quote className="w-6 h-6 text-[#a3e635]" />
-                        <div className="flex gap-0.5 text-yellow-500">
-                          {[...Array(test.rating || 5)].map((_, i) => (
-                            <Star key={i} className="w-3 h-3 fill-yellow-400 text-transparent" />
-                          ))}
+
+                      <div className="pt-4 mt-4 border-t border-gray-100 flex items-center gap-3">
+                        <img
+                          src={test.avatar}
+                          alt={`${test.author}, testimonial`}
+                          className="w-10 h-10 rounded-full object-cover shadow-sm bg-gray-50 shrink-0 border border-gray-200"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div className="min-w-0">
+                          <h4 className="text-xs font-bold text-gray-900 truncate">{test.author}</h4>
+                          <p className="text-[10px] text-gray-500 font-semibold truncate">{test.role} · {test.company}</p>
                         </div>
                       </div>
-                      <p className="text-xs text-gray-600 leading-relaxed italic font-normal">
-                        &ldquo;{test.quote}&rdquo;
-                      </p>
                     </div>
-
-                    <div className="pt-4 mt-4 border-t border-gray-100 flex items-center gap-3">
-                      <img
-                        src={test.avatar}
-                        alt={`${test.author}, testimonial`}
-                        className="w-10 h-10 rounded-full object-cover shadow-sm bg-gray-50 shrink-0 border border-gray-200"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className="min-w-0">
-                        <h4 className="text-xs font-bold text-gray-900 truncate">{test.author}</h4>
-                        <p className="text-[10px] text-gray-500 font-semibold truncate">{test.role} · {test.company}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* Row 2: Right to Left */}
-            <div className="w-full overflow-hidden flex relative py-2">
-              {/* Fade masks to look elegant */}
-              <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#fafdfa] to-transparent z-10 pointer-events-none"></div>
-              <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#fafdfa] to-transparent z-10 pointer-events-none"></div>
-              
-              <div className="animate-marquee [--marquee-duration:42s] flex gap-6 pr-6">
-                {testimonialsData.slice(9, 18).map((test, index) => (
-                  <div
-                    key={`${test.id}-r2-${index}`}
-                    className="w-[320px] sm:w-[380px] shrink-0 bg-white border border-gray-150 p-6 sm:p-7 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.015)] hover:shadow-xl hover:border-[#a3e635]/60 hover:scale-[1.03] active:scale-95 transition-all duration-300 flex flex-col justify-between cursor-pointer"
-                  >
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <Quote className="w-6 h-6 text-[#a3e635]" />
-                        <div className="flex gap-0.5 text-yellow-500">
-                          {[...Array(test.rating || 5)].map((_, i) => (
-                            <Star key={i} className="w-3 h-3 fill-yellow-400 text-transparent" />
-                          ))}
+              {/* Row 2: Right to Left */}
+              <div className="w-full overflow-hidden flex relative py-2">
+                {/* Fade masks to look elegant */}
+                <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#fafdfa] to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#fafdfa] to-transparent z-10 pointer-events-none"></div>
+                
+                <div className="animate-marquee [--marquee-duration:42s] flex gap-6 pr-6">
+                  {testimonialsData.slice(9, 18).map((test, index) => (
+                    <div
+                      key={`${test.id}-r2-${index}`}
+                      className="w-[320px] sm:w-[380px] shrink-0 bg-white border border-gray-150 p-6 sm:p-7 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.015)] hover:shadow-xl hover:border-[#a3e635]/60 hover:scale-[1.03] active:scale-95 transition-all duration-300 flex flex-col justify-between cursor-pointer"
+                    >
+                      <div className="space-y-4">
+                        <div className="flex justify-between items-center">
+                          <Quote className="w-6 h-6 text-[#a3e635]" />
+                          <div className="flex gap-0.5 text-yellow-500">
+                            {[...Array(test.rating || 5)].map((_, i) => (
+                              <Star key={i} className="w-3 h-3 fill-yellow-400 text-transparent" />
+                            ))}
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-600 leading-relaxed italic font-normal">
+                          &ldquo;{test.quote}&rdquo;
+                        </p>
+                      </div>
+
+                      <div className="pt-4 mt-4 border-t border-gray-100 flex items-center gap-3">
+                        <img
+                          src={test.avatar}
+                          alt={`${test.author}, testimonial`}
+                          className="w-10 h-10 rounded-full object-cover shadow-sm bg-gray-50 shrink-0 border border-gray-200"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div className="min-w-0">
+                          <h4 className="text-xs font-bold text-gray-900 truncate">{test.author}</h4>
+                          <p className="text-[10px] text-gray-500 font-semibold truncate">{test.role} · {test.company}</p>
                         </div>
                       </div>
-                      <p className="text-xs text-gray-600 leading-relaxed italic font-normal">
-                        &ldquo;{test.quote}&rdquo;
-                      </p>
                     </div>
-
-                    <div className="pt-4 mt-4 border-t border-gray-100 flex items-center gap-3">
-                      <img
-                        src={test.avatar}
-                        alt={`${test.author}, testimonial`}
-                        className="w-10 h-10 rounded-full object-cover shadow-sm bg-gray-50 shrink-0 border border-gray-200"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className="min-w-0">
-                        <h4 className="text-xs font-bold text-gray-900 truncate">{test.author}</h4>
-                        <p className="text-[10px] text-gray-500 font-semibold truncate">{test.role} · {test.company}</p>
+                  ))}
+                  {/* Duplicate row 2 for seamless infinite looping */}
+                  {testimonialsData.slice(9, 18).map((test, index) => (
+                    <div
+                      key={`${test.id}-r2-dup-${index}`}
+                      className="w-[320px] sm:w-[380px] shrink-0 bg-white border border-gray-150 p-6 sm:p-7 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.015)] hover:shadow-xl hover:border-[#a3e635]/60 hover:scale-[1.03] active:scale-95 transition-all duration-300 flex flex-col justify-between cursor-pointer"
+                    >
+                      <div className="space-y-4">
+                        <div className="flex justify-between items-center">
+                          <Quote className="w-6 h-6 text-[#a3e635]" />
+                          <div className="flex gap-0.5 text-yellow-500">
+                            {[...Array(test.rating || 5)].map((_, i) => (
+                              <Star key={i} className="w-3 h-3 fill-yellow-400 text-transparent" />
+                            ))}
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-600 leading-relaxed italic font-normal">
+                          &ldquo;{test.quote}&rdquo;
+                        </p>
                       </div>
-                    </div>
-                  </div>
-                ))}
-                {/* Duplicate row 2 for seamless infinite looping */}
-                {testimonialsData.slice(9, 18).map((test, index) => (
-                  <div
-                    key={`${test.id}-r2-dup-${index}`}
-                    className="w-[320px] sm:w-[380px] shrink-0 bg-white border border-gray-150 p-6 sm:p-7 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.015)] hover:shadow-xl hover:border-[#a3e635]/60 hover:scale-[1.03] active:scale-95 transition-all duration-300 flex flex-col justify-between cursor-pointer"
-                  >
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <Quote className="w-6 h-6 text-[#a3e635]" />
-                        <div className="flex gap-0.5 text-yellow-500">
-                          {[...Array(test.rating || 5)].map((_, i) => (
-                            <Star key={i} className="w-3 h-3 fill-yellow-400 text-transparent" />
-                          ))}
+
+                      <div className="pt-4 mt-4 border-t border-gray-100 flex items-center gap-3">
+                        <img
+                          src={test.avatar}
+                          alt={`${test.author}, testimonial`}
+                          className="w-10 h-10 rounded-full object-cover shadow-sm bg-gray-50 shrink-0 border border-gray-250"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div className="min-w-0">
+                          <h4 className="text-xs font-bold text-gray-900 truncate">{test.author}</h4>
+                          <p className="text-[10px] text-gray-500 font-semibold truncate">{test.role} · {test.company}</p>
                         </div>
                       </div>
-                      <p className="text-xs text-gray-600 leading-relaxed italic font-normal">
-                        &ldquo;{test.quote}&rdquo;
-                      </p>
                     </div>
-
-                    <div className="pt-4 mt-4 border-t border-gray-100 flex items-center gap-3">
-                      <img
-                        src={test.avatar}
-                        alt={`${test.author}, testimonial`}
-                        className="w-10 h-10 rounded-full object-cover shadow-sm bg-gray-50 shrink-0 border border-gray-200"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className="min-w-0">
-                        <h4 className="text-xs font-bold text-gray-900 truncate">{test.author}</h4>
-                        <p className="text-[10px] text-gray-500 font-semibold truncate">{test.role} · {test.company}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
 
-          </div>
+            </div>
 
           <div className="flex justify-center mt-12">
             <button onClick={() => setActiveTab("consultation")} className="inline-flex items-center gap-2 bg-[#0b2512] hover:bg-neutral-900 text-[#a3e635] font-bold text-xs px-8 py-3.5 rounded-full cursor-pointer shadow-lg transition-transform duration-200 active:scale-95">

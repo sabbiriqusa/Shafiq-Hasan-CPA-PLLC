@@ -30,13 +30,16 @@ import {
   Star,
   X,
   Menu,
-  Headphones
+  Headphones,
+  Sun,
+  Moon
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 // Components
 import TaxCalculator from "./components/TaxCalculator";
 import ChatBot from "./components/ChatBot";
+import FloatingGoogleReviews from "./components/FloatingGoogleReviews";
 import ConsultationWizard from "./components/ConsultationWizard";
 import HomePage from "./components/HomePage";
 import ServicesPage from "./components/ServicesPage";
@@ -65,6 +68,21 @@ import {
 import { Service, TeamMember, BlogPost } from "./types";
 
 export default function App() {
+  // Dark / Light Theme Toggle State
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    const saved = localStorage.getItem("shafiq_cpa_theme");
+    return (saved === "dark" || saved === "light") ? saved : "light";
+  });
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("shafiq_cpa_theme", theme);
+  }, [theme]);
+
   // Navigation active anchors state
   const [activeTab, setActiveTab] = useState("home");
   const [activeFaq, setActiveFaq] = useState<number | null>(1);
@@ -499,6 +517,21 @@ export default function App() {
 
           {/* Right Action Button & Mobile Trigger */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0 relative z-10">
+            {/* Theme Toggle Button */}
+            <button
+              id="theme-toggle-btn"
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              className="p-2.5 rounded-full border border-sky-400/25 bg-sky-950/40 text-[#38bdf8] hover:bg-sky-900/40 hover:text-white transition-all cursor-pointer flex items-center justify-center shrink-0 shadow-lg"
+              aria-label="Toggle Theme"
+              title={`Switch to ${theme === "light" ? "Dark" : "Light"} Mode`}
+            >
+              {theme === "light" ? (
+                <Moon className="w-4.5 h-4.5" />
+              ) : (
+                <Sun className="w-4.5 h-4.5 text-amber-400" />
+              )}
+            </button>
+
             {/* Free Consultation Button */}
             <motion.button
               id="header-free-consultation-btn"
@@ -1395,6 +1428,9 @@ export default function App() {
 
       {/* Floating AI chatbot component */}
       <ChatBot />
+
+      {/* Floating Google Reviews client widget */}
+      <FloatingGoogleReviews />
 
       {/* Calendar consultation scheduling overlay wizard */}
       <ConsultationWizard

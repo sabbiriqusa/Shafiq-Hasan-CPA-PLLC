@@ -58,3 +58,13 @@ export interface FAQItem {
   question: string;
   answer: string;
 }
+
+export interface GoogleReview {
+  id: string;
+  author: string;
+  rating: number;
+  text: string;
+  date: string;
+  avatarChar: string;
+  serviceTag: string;
+}
