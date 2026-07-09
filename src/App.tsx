@@ -244,43 +244,53 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafdfa] text-gray-800 font-sans selection:bg-[#a3e635] selection:text-[#0b2512] scroll-smooth">
+    <div className="min-h-screen bg-[#fafdfa] text-slate-800 font-sans selection:bg-sky-100 selection:text-sky-900 scroll-smooth">
       
-      {/* 1. Header Navigation Bar (Elite Dark-Emerald Design with Grid Pattern) */}
-      <header className="sticky top-0 z-50 w-full bg-[#0c2415] text-white border-b border-emerald-950/40 shadow-xl transition-all duration-300 select-none">
+      {/* 1. Header Navigation Bar (Modern Glassmorphism Design with Subtle Frosted Blur & Slate/Sky Color Palette) */}
+      <header className="sticky top-0 z-50 w-full bg-white/70 backdrop-blur-md text-slate-800 border-b border-slate-200/55 shadow-sm transition-all duration-300 select-none">
         
-        {/* Sublime grid pattern on background */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(163,230,53,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(163,230,53,0.035)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none z-0"></div>
+        {/* Subtle grid pattern on background */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(14,165,233,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,0.015)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none z-0"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4 relative">
           
           {/* Logo / Brand Name */}
           <div className="flex items-center gap-3 shrink-0 group relative z-10">
-            <button className="bg-emerald-950 w-11 h-11 rounded-xl flex items-center justify-center shadow-lg border border-[#a3e635]/35 group-hover:scale-105 active:scale-95 transition-transform duration-250 cursor-pointer text-left" onClick={() => setActiveTab("home")}>
-              <Percent className="w-5.5 h-5.5 text-[#a3e635] stroke-[2.5]" />
+            <button 
+              className="bg-sky-50 hover:bg-sky-100 w-11 h-11 rounded-xl flex items-center justify-center shadow-sm border border-sky-200/65 group-hover:scale-105 active:scale-95 transition-transform duration-250 cursor-pointer text-left" 
+              onClick={() => setActiveTab("home")}
+            >
+              <Percent className="w-5.5 h-5.5 text-sky-600 stroke-[2.5]" />
             </button>
             <button className="flex flex-col cursor-pointer text-left font-sans" onClick={() => { setActiveTab("home"); setOpenDropdown(null); }}>
-              <span className="font-display font-black text-white text-base sm:text-[17px] tracking-tight leading-tight block group-hover:text-[#a3e635] transition-colors duration-200">
+              <span className="font-display font-black text-slate-900 text-base sm:text-[17px] tracking-tight leading-tight block group-hover:text-sky-600 transition-colors duration-200">
                 Shafiq Hasan CPA PLLC
               </span>
-              <span className="text-[9px] uppercase font-bold tracking-[0.165em] text-[#a3e635] font-mono block mt-0.5 leading-none">
+              <span className="text-[9px] uppercase font-bold tracking-[0.165em] text-sky-600 font-mono block mt-0.5 leading-none">
                 Certified Public Accountant
               </span>
             </button>
           </div>
 
           {/* Nav Links - Desktop with premium dropdown mechanics */}
-          <nav className="hidden lg:flex items-center gap-1.5 text-xs font-semibold text-white/95 relative z-15">
+          <nav className="hidden lg:flex items-center gap-1 text-xs font-semibold text-slate-700 relative z-15">
             {/* Home link */}
             <motion.button
               onClick={() => { setActiveTab("home"); setOpenDropdown(null); }}
-              whileHover={{ scale: 1.04, y: -0.5 }}
-              whileTap={{ scale: 0.96 }}
-              className={`px-3 py-2 rounded-xl text-[12.5px] font-bold tracking-tight transition-all duration-200 cursor-pointer ${
-                activeTab === "home" ? "bg-[#a3e635] text-[#0b2512] font-extrabold shadow-md" : "hover:bg-white/10 text-white"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className={`relative px-4 py-2.5 rounded-xl text-[13px] font-bold tracking-tight transition-all duration-200 cursor-pointer ${
+                activeTab === "home" ? "text-sky-600 font-extrabold" : "hover:bg-slate-100/60 text-slate-600 hover:text-slate-900"
               }`}
             >
-              Home
+              <span className="relative z-10">Home</span>
+              {activeTab === "home" && (
+                <motion.div
+                  layoutId="activeNavTabLine"
+                  className="absolute bottom-0 left-4 right-4 h-0.5 bg-sky-500 rounded-full"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
             </motion.button>
 
             {/* Services Dropdown */}
@@ -291,21 +301,29 @@ export default function App() {
             >
               <button
                 onClick={() => { setActiveTab("services"); setOpenDropdown(openDropdown === "services" ? null : "services"); }}
-                className={`px-3 py-2 rounded-xl text-[12.5px] font-bold tracking-tight transition-all duration-200 flex items-center gap-1 cursor-pointer ${
-                  activeTab === "services" ? "bg-[#a3e635] text-[#0b2512] font-extrabold shadow-md" : "hover:bg-white/10 text-white"
+                className={`relative px-4 py-2.5 rounded-xl text-[13px] font-bold tracking-tight transition-all duration-200 flex items-center gap-1 cursor-pointer ${
+                  activeTab === "services" ? "text-sky-600 font-extrabold" : "hover:bg-slate-100/60 text-slate-600 hover:text-slate-900"
                 }`}
               >
-                Services <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === "services" ? "rotate-180" : ""}`} />
+                <span className="relative z-10">Services</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === "services" ? "rotate-180" : ""}`} />
+                {activeTab === "services" && (
+                  <motion.div
+                    layoutId="activeNavTabLine"
+                    className="absolute bottom-0 left-4 right-7 h-0.5 bg-sky-500 rounded-full"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
               </button>
 
               <AnimatePresence>
                 {openDropdown === "services" && (
                   <motion.div
-                    initial={{ opacity: 0, y: 15, scale: 0.97 }}
+                    initial={{ opacity: 0, y: 10, scale: 0.97 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 15, scale: 0.97 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.97 }}
                     transition={{ duration: 0.18, ease: "easeOut" }}
-                    className="absolute left-0 mt-1 w-64 bg-[#0a1c18] border border-white/15 rounded-2xl shadow-2xl p-3 space-y-1 text-left z-50 overflow-hidden"
+                    className="absolute left-0 mt-1 w-68 bg-white/95 backdrop-blur-xl border border-slate-200/70 rounded-2xl shadow-xl p-3 space-y-1 text-left z-50 overflow-hidden"
                   >
                     {[
                       { label: "For Individuals", desc: "Elite personalized tax shielding & Dallas protests", tag: "individual" },
@@ -320,12 +338,12 @@ export default function App() {
                           setSearchQuery(item.tag);
                           setOpenDropdown(null);
                         }}
-                        className="w-full text-left p-2.5 rounded-xl text-xs hover:bg-[#a3e635]/15 hover:text-[#a3e635] text-white/95 transition-all text-left duration-150 cursor-pointer font-sans"
+                        className="w-full text-left p-2.5 rounded-xl hover:bg-sky-50/70 hover:text-sky-600 transition-all duration-150 cursor-pointer font-sans"
                       >
-                        <div className="font-bold flex items-center gap-1">
-                          {item.label} <ArrowUpRight className="w-3 h-3 text-[#a3e635] opacity-80" />
+                        <div className="font-bold flex items-center gap-1 text-[12.5px] text-slate-800">
+                          {item.label} <ArrowUpRight className="w-3.5 h-3.5 text-sky-500 opacity-80" />
                         </div>
-                        <div className="text-[10px] text-zinc-400 mt-0.5 leading-normal font-medium">{item.desc}</div>
+                        <div className="text-[10px] text-slate-500 mt-0.5 leading-normal font-medium">{item.desc}</div>
                       </button>
                     ))}
                   </motion.div>
@@ -341,21 +359,29 @@ export default function App() {
             >
               <button
                 onClick={() => { setActiveTab("misc"); setOpenDropdown(openDropdown === "misc" ? null : "misc"); }}
-                className={`px-3 py-2 rounded-xl text-[12.5px] font-bold tracking-tight transition-all duration-200 flex items-center gap-1 cursor-pointer ${
-                  activeTab === "misc" ? "bg-[#a3e635] text-[#0b2512] font-extrabold shadow-md" : "hover:bg-white/10 text-white"
+                className={`relative px-4 py-2.5 rounded-xl text-[13px] font-bold tracking-tight transition-all duration-200 flex items-center gap-1 cursor-pointer ${
+                  activeTab === "misc" ? "text-sky-600 font-extrabold" : "hover:bg-slate-100/60 text-slate-600 hover:text-slate-900"
                 }`}
               >
-                Misc <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === "misc" ? "rotate-180" : ""}`} />
+                <span className="relative z-10">Misc</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === "misc" ? "rotate-180" : ""}`} />
+                {activeTab === "misc" && (
+                  <motion.div
+                    layoutId="activeNavTabLine"
+                    className="absolute bottom-0 left-4 right-7 h-0.5 bg-sky-500 rounded-full"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
               </button>
 
               <AnimatePresence>
                 {openDropdown === "misc" && (
                   <motion.div
-                    initial={{ opacity: 0, y: 15, scale: 0.97 }}
+                    initial={{ opacity: 0, y: 10, scale: 0.97 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 15, scale: 0.97 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.97 }}
                     transition={{ duration: 0.18, ease: "easeOut" }}
-                    className="absolute left-0 mt-1 w-64 bg-[#0a1c18] border border-white/15 rounded-2xl shadow-2xl p-3 space-y-1 text-left z-50 overflow-hidden"
+                    className="absolute left-0 mt-1 w-68 bg-white/95 backdrop-blur-xl border border-slate-200/70 rounded-2xl shadow-xl p-3 space-y-1 text-left z-50 overflow-hidden"
                   >
                     {[
                       { label: "FAQ Helpdesk", desc: "Answers regarding corporate ledger & tax fixes", sub: "faq" },
@@ -370,12 +396,12 @@ export default function App() {
                           setSelectedMiscId(item.sub);
                           setOpenDropdown(null);
                         }}
-                        className="w-full text-left p-2.5 rounded-xl text-xs hover:bg-[#a3e635]/15 hover:text-[#a3e635] text-white/95 transition-all text-left duration-150 cursor-pointer font-sans"
+                        className="w-full text-left p-2.5 rounded-xl hover:bg-sky-50/70 hover:text-sky-600 transition-all duration-150 cursor-pointer font-sans"
                       >
-                        <div className="font-bold flex items-center gap-1">
-                          {item.label} <ArrowUpRight className="w-3 h-3 text-[#a3e635] opacity-80" />
+                        <div className="font-bold flex items-center gap-1 text-[12.5px] text-slate-800">
+                          {item.label} <ArrowUpRight className="w-3.5 h-3.5 text-sky-500 opacity-80" />
                         </div>
-                        <div className="text-[10px] text-zinc-400 mt-0.5 leading-normal font-medium">{item.desc}</div>
+                        <div className="text-[10px] text-slate-500 mt-0.5 leading-normal font-medium">{item.desc}</div>
                       </button>
                     ))}
                   </motion.div>
@@ -391,21 +417,29 @@ export default function App() {
             >
               <button
                 onClick={() => { setActiveTab("guides"); setOpenDropdown(openDropdown === "guides" ? null : "guides"); }}
-                className={`px-3 py-2 rounded-xl text-[12.5px] font-bold tracking-tight transition-all duration-200 flex items-center gap-1 cursor-pointer ${
-                  activeTab === "guides" ? "bg-[#a3e635] text-[#0b2512] font-extrabold shadow-md" : "hover:bg-white/10 text-white"
+                className={`relative px-4 py-2.5 rounded-xl text-[13px] font-bold tracking-tight transition-all duration-200 flex items-center gap-1 cursor-pointer ${
+                  activeTab === "guides" ? "text-sky-600 font-extrabold" : "hover:bg-slate-100/60 text-slate-600 hover:text-slate-900"
                 }`}
               >
-                Guides <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === "guides" ? "rotate-180" : ""}`} />
+                <span className="relative z-10">Guides</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === "guides" ? "rotate-180" : ""}`} />
+                {activeTab === "guides" && (
+                  <motion.div
+                    layoutId="activeNavTabLine"
+                    className="absolute bottom-0 left-4 right-7 h-0.5 bg-sky-500 rounded-full"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
               </button>
 
               <AnimatePresence>
                 {openDropdown === "guides" && (
                   <motion.div
-                    initial={{ opacity: 0, y: 15, scale: 0.97 }}
+                    initial={{ opacity: 0, y: 10, scale: 0.97 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 15, scale: 0.97 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.97 }}
                     transition={{ duration: 0.18, ease: "easeOut" }}
-                    className="absolute left-0 mt-1 w-64 bg-[#0a1c18] border border-white/15 rounded-2xl shadow-2xl p-3 space-y-1 text-left z-50 overflow-hidden"
+                    className="absolute left-0 mt-1 w-68 bg-white/95 backdrop-blur-xl border border-slate-200/70 rounded-2xl shadow-xl p-3 space-y-1 text-left z-50 overflow-hidden"
                   >
                     {[
                       { label: "Texas Property Tax Protest", desc: "Lower home valuations in Dallas & Collin CAD", sub: "property-tax" },
@@ -420,12 +454,12 @@ export default function App() {
                           setSelectedGuideId(item.sub);
                           setOpenDropdown(null);
                         }}
-                        className="w-full text-left p-2.5 rounded-xl text-xs hover:bg-[#a3e635]/15 hover:text-[#a3e635] text-white/95 transition-all text-left duration-150 cursor-pointer font-sans"
+                        className="w-full text-left p-2.5 rounded-xl hover:bg-sky-50/70 hover:text-sky-600 transition-all duration-150 cursor-pointer font-sans"
                       >
-                        <div className="font-bold flex items-center gap-1">
-                          {item.label} <ArrowUpRight className="w-3 h-3 text-[#a3e635] opacity-80" />
+                        <div className="font-bold flex items-center gap-1 text-[12.5px] text-slate-800">
+                          {item.label} <ArrowUpRight className="w-3.5 h-3.5 text-sky-500 opacity-80" />
                         </div>
-                        <div className="text-[10px] text-zinc-400 mt-0.5 leading-normal font-medium">{item.desc}</div>
+                        <div className="text-[10px] text-slate-500 mt-0.5 leading-normal font-medium">{item.desc}</div>
                       </button>
                     ))}
                   </motion.div>
@@ -441,21 +475,29 @@ export default function App() {
             >
               <button
                 onClick={() => { setActiveTab("tax-center"); setOpenDropdown(openDropdown === "taxcenter" ? null : "taxcenter"); }}
-                className={`px-3 py-2 rounded-xl text-[12.5px] font-bold tracking-tight transition-all duration-200 flex items-center gap-1 cursor-pointer ${
-                  activeTab === "tax-center" ? "bg-[#a3e635] text-[#0b2512] font-extrabold shadow-md" : "hover:bg-white/10 text-white"
+                className={`relative px-4 py-2.5 rounded-xl text-[13px] font-bold tracking-tight transition-all duration-200 flex items-center gap-1 cursor-pointer ${
+                  activeTab === "tax-center" ? "text-sky-600 font-extrabold" : "hover:bg-slate-100/60 text-slate-600 hover:text-slate-900"
                 }`}
               >
-                Tax Center <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === "taxcenter" ? "rotate-180" : ""}`} />
+                <span className="relative z-10">Tax Center</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === "taxcenter" ? "rotate-180" : ""}`} />
+                {activeTab === "tax-center" && (
+                  <motion.div
+                    layoutId="activeNavTabLine"
+                    className="absolute bottom-0 left-4 right-7 h-0.5 bg-sky-500 rounded-full"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
               </button>
 
               <AnimatePresence>
                 {openDropdown === "taxcenter" && (
                   <motion.div
-                    initial={{ opacity: 0, y: 15, scale: 0.97 }}
+                    initial={{ opacity: 0, y: 10, scale: 0.97 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 15, scale: 0.97 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.97 }}
                     transition={{ duration: 0.18, ease: "easeOut" }}
-                    className="absolute left-0 mt-1 w-64 bg-[#0a1c18] border border-white/15 rounded-2xl shadow-2xl p-3 space-y-1 text-left z-50 overflow-hidden"
+                    className="absolute left-0 mt-1 w-68 bg-white/95 backdrop-blur-xl border border-slate-200/70 rounded-2xl shadow-xl p-3 space-y-1 text-left z-50 overflow-hidden"
                   >
                     {[
                       { label: "Tax Estimators", desc: "Interactive dividend shields & home protests estimators", sub: "calculators" },
@@ -470,12 +512,12 @@ export default function App() {
                           setSelectedTaxCenterId(item.sub);
                           setOpenDropdown(null);
                         }}
-                        className="w-full text-left p-2.5 rounded-xl text-xs hover:bg-[#a3e635]/15 hover:text-[#a3e635] text-white/95 transition-all text-left duration-150 cursor-pointer font-sans"
+                        className="w-full text-left p-2.5 rounded-xl hover:bg-sky-50/70 hover:text-sky-600 transition-all duration-150 cursor-pointer font-sans"
                       >
-                        <div className="font-bold flex items-center gap-1">
-                          {item.label} <ArrowUpRight className="w-3 h-3 text-[#a3e635] opacity-80" />
+                        <div className="font-bold flex items-center gap-1 text-[12.5px] text-slate-800">
+                          {item.label} <ArrowUpRight className="w-3.5 h-3.5 text-sky-500 opacity-80" />
                         </div>
-                        <div className="text-[10px] text-zinc-400 mt-0.5 leading-normal font-medium">{item.desc}</div>
+                        <div className="text-[10px] text-slate-500 mt-0.5 leading-normal font-medium">{item.desc}</div>
                       </button>
                     ))}
                   </motion.div>
@@ -486,25 +528,39 @@ export default function App() {
             {/* About Link */}
             <motion.button
               onClick={() => { setActiveTab("about"); setOpenDropdown(null); }}
-              whileHover={{ scale: 1.04, y: -0.5 }}
-              whileTap={{ scale: 0.96 }}
-              className={`px-3 py-2 rounded-xl text-[12.5px] font-bold tracking-tight transition-all duration-200 cursor-pointer ${
-                activeTab === "about" ? "bg-[#a3e635] text-[#0b2512] font-extrabold shadow-md" : "hover:bg-white/10 text-white"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className={`relative px-4 py-2.5 rounded-xl text-[13px] font-bold tracking-tight transition-all duration-200 cursor-pointer ${
+                activeTab === "about" ? "text-sky-600 font-extrabold" : "hover:bg-slate-100/60 text-slate-600 hover:text-slate-900"
               }`}
             >
-              About
+              <span className="relative z-10">About</span>
+              {activeTab === "about" && (
+                <motion.div
+                  layoutId="activeNavTabLine"
+                  className="absolute bottom-0 left-4 right-4 h-0.5 bg-sky-500 rounded-full"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
             </motion.button>
 
             {/* Contact Link */}
             <motion.button
               onClick={() => { setActiveTab("contact"); setOpenDropdown(null); }}
-              whileHover={{ scale: 1.04, y: -0.5 }}
-              whileTap={{ scale: 0.96 }}
-              className={`px-3 py-2 rounded-xl text-[12.5px] font-bold tracking-tight transition-all duration-200 cursor-pointer ${
-                activeTab === "contact" ? "bg-[#a3e635] text-[#0b2512] font-extrabold shadow-md" : "hover:bg-white/10 text-white"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className={`relative px-4 py-2.5 rounded-xl text-[13px] font-bold tracking-tight transition-all duration-200 cursor-pointer ${
+                activeTab === "contact" ? "text-sky-600 font-extrabold" : "hover:bg-slate-100/60 text-slate-600 hover:text-slate-900"
               }`}
             >
-              Contact
+              <span className="relative z-10">Contact</span>
+              {activeTab === "contact" && (
+                <motion.div
+                  layoutId="activeNavTabLine"
+                  className="absolute bottom-0 left-4 right-4 h-0.5 bg-sky-500 rounded-full"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
             </motion.button>
           </nav>
 
@@ -520,22 +576,22 @@ export default function App() {
               }}
               whileHover={{ scale: 1.03, y: -0.5 }}
               whileTap={{ scale: 0.97 }}
-              className="bg-[#bef264] hover:bg-[#a3e635] text-[#0c2415] text-xs font-black px-4.5 py-2.5 rounded-full shadow-lg transition-all duration-200 flex items-center gap-2 cursor-pointer font-sans border border-lime-300/10"
+              className="bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold px-4.5 py-2.5 rounded-full shadow-md transition-all duration-200 flex items-center gap-2 cursor-pointer font-sans border border-sky-500/10"
             >
               <span className="sm:inline block">Free Consultation</span>
-              <Headphones className="w-3.5 h-3.5 text-[#0c2415]" />
+              <Headphones className="w-3.5 h-3.5 text-white/95" />
             </motion.button>
 
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl hover:bg-white/10 transition-all text-white cursor-pointer"
+              className="lg:hidden p-2 rounded-xl hover:bg-slate-100 transition-all text-slate-700 hover:text-sky-600 cursor-pointer"
               aria-label="Toggle Menu"
             >
               {isMobileMenuOpen ? (
-                <X className="w-5 h-5 text-white font-bold" />
+                <X className="w-5 h-5 text-slate-800 font-bold" />
               ) : (
-                <Menu className="w-5 h-5 text-white" />
+                <Menu className="w-5 h-5 text-slate-800" />
               )}
             </button>
           </div>
@@ -550,22 +606,22 @@ export default function App() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="lg:hidden bg-[#0a1c18]/95 backdrop-blur-2xl border-t border-white/10 overflow-hidden shadow-2xl font-sans"
+              className="lg:hidden bg-white/95 backdrop-blur-2xl border-t border-slate-200/70 overflow-hidden shadow-xl font-sans"
             >
-              <div className="px-5 py-6 space-y-3.5 max-h-[80vh] overflow-y-auto">
+              <div className="px-5 py-6 space-y-3.5 max-h-[80vh] overflow-y-auto text-slate-700">
                 {/* Core Pages */}
                 <button
                   onClick={() => { setActiveTab("home"); setIsMobileMenuOpen(false); }}
                   className={`block w-full text-left px-4 py-2 rounded-xl text-sm font-bold tracking-tight cursor-pointer ${
-                    activeTab === "home" ? "bg-[#a3e635] text-[#0b2512]" : "text-zinc-300 hover:text-white"
+                    activeTab === "home" ? "bg-sky-50 text-sky-600" : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   Home
                 </button>
 
                 {/* Services Section */}
-                <div className="border-l border-white/10 pl-3 py-1 space-y-1">
-                  <span className="text-[10px] font-mono tracking-wider text-emerald-400 font-extrabold uppercase px-1">Services Dropdown:</span>
+                <div className="border-l border-slate-200 pl-3 py-1 space-y-1">
+                  <span className="text-[10px] font-mono tracking-wider text-sky-600 font-extrabold uppercase px-1">Services Dropdown:</span>
                   {[
                     { label: "For Individuals", tag: "individual" },
                     { label: "For Businesses", tag: "business" },
@@ -579,7 +635,7 @@ export default function App() {
                         setSearchQuery(sub.tag);
                         setIsMobileMenuOpen(false);
                       }}
-                      className="block w-full text-left py-1 px-2 text-xs font-semibold text-zinc-400 hover:text-emerald-300 cursor-pointer"
+                      className="block w-full text-left py-1 px-2 text-xs font-semibold text-slate-500 hover:text-sky-600 cursor-pointer"
                     >
                       ↳ {sub.label}
                     </button>
@@ -587,8 +643,8 @@ export default function App() {
                 </div>
 
                 {/* Misc Section */}
-                <div className="border-l border-white/10 pl-3 py-1 space-y-1">
-                  <span className="text-[10px] font-mono tracking-wider text-emerald-400 font-extrabold uppercase px-1">Misc Dropdown:</span>
+                <div className="border-l border-slate-200 pl-3 py-1 space-y-1">
+                  <span className="text-[10px] font-mono tracking-wider text-sky-600 font-extrabold uppercase px-1">Misc Dropdown:</span>
                   {[
                     { label: "FAQ Helpdesk", code: "faq" },
                     { label: "New Client Onboarding", code: "onboarding" },
@@ -602,7 +658,7 @@ export default function App() {
                         setSelectedMiscId(sub.code);
                         setIsMobileMenuOpen(false);
                       }}
-                      className="block w-full text-left py-1 px-2 text-xs font-semibold text-zinc-400 hover:text-emerald-300 cursor-pointer"
+                      className="block w-full text-left py-1 px-2 text-xs font-semibold text-slate-500 hover:text-sky-600 cursor-pointer"
                     >
                       ↳ {sub.label}
                     </button>
@@ -610,8 +666,8 @@ export default function App() {
                 </div>
 
                 {/* Guides Section */}
-                <div className="border-l border-white/10 pl-3 py-1 space-y-1">
-                  <span className="text-[10px] font-mono tracking-wider text-emerald-400 font-extrabold uppercase px-1">Guides Dropdown:</span>
+                <div className="border-l border-slate-200 pl-3 py-1 space-y-1">
+                  <span className="text-[10px] font-mono tracking-wider text-sky-600 font-extrabold uppercase px-1">Guides Dropdown:</span>
                   {[
                     { label: "Texas Property tax Appeals", code: "property-tax" },
                     { label: "FICA S-Corp Dividend Shields", code: "scorp" },
@@ -625,7 +681,7 @@ export default function App() {
                         setSelectedGuideId(sub.code);
                         setIsMobileMenuOpen(false);
                       }}
-                      className="block w-full text-left py-1 px-2 text-xs font-semibold text-zinc-400 hover:text-emerald-300 cursor-pointer"
+                      className="block w-full text-left py-1 px-2 text-xs font-semibold text-slate-500 hover:text-sky-600 cursor-pointer"
                     >
                       ↳ {sub.label}
                     </button>
@@ -633,8 +689,8 @@ export default function App() {
                 </div>
 
                 {/* Tax Center Section */}
-                <div className="border-l border-white/10 pl-3 py-1 space-y-1">
-                  <span className="text-[10px] font-mono tracking-wider text-emerald-400 font-extrabold uppercase px-1">Tax Center Dropdown:</span>
+                <div className="border-l border-slate-200 pl-3 py-1 space-y-1">
+                  <span className="text-[10px] font-mono tracking-wider text-sky-600 font-extrabold uppercase px-1">Tax Center Dropdown:</span>
                   {[
                     { label: "Interactive Estimators Suite", code: "calculators" },
                     { label: "Important Tax Deadlines Calendar", code: "calendar" },
@@ -648,7 +704,7 @@ export default function App() {
                         setSelectedTaxCenterId(sub.code);
                         setIsMobileMenuOpen(false);
                       }}
-                      className="block w-full text-left py-1 px-2 text-xs font-semibold text-zinc-400 hover:text-emerald-300 cursor-pointer"
+                      className="block w-full text-left py-1 px-2 text-xs font-semibold text-slate-500 hover:text-sky-600 cursor-pointer"
                     >
                       ↳ {sub.label}
                     </button>
@@ -659,7 +715,7 @@ export default function App() {
                 <button
                   onClick={() => { setActiveTab("about"); setIsMobileMenuOpen(false); }}
                   className={`block w-full text-left px-4 py-2 rounded-xl text-sm font-bold tracking-tight cursor-pointer ${
-                    activeTab === "about" ? "bg-[#a3e635] text-[#0b2512]" : "text-zinc-300 hover:text-white"
+                    activeTab === "about" ? "bg-sky-50 text-sky-600" : "text-slate-600 hover:text-sky-900"
                   }`}
                 >
                   Meet Our Team
@@ -667,7 +723,7 @@ export default function App() {
                 <button
                   onClick={() => { setActiveTab("contact"); setIsMobileMenuOpen(false); }}
                   className={`block w-full text-left px-4 py-2 rounded-xl text-sm font-bold tracking-tight cursor-pointer ${
-                    activeTab === "contact" ? "bg-[#a3e635] text-[#0b2512]" : "text-zinc-300 hover:text-white"
+                    activeTab === "contact" ? "bg-sky-50 text-sky-600" : "text-slate-600 hover:text-sky-900"
                   }`}
                 >
                   Contact

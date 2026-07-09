@@ -5,6 +5,7 @@ import {
   testimonialsData, 
   googleReviewsData,
   DALLAS_SKYLINE, 
+  TEXAS_DRONE_SHOT,
   SHAFIQ_HASAN_PORTRAIT, 
   INDIVIDUAL_SERVICE_IMG, 
   BUSINESS_SERVICE_IMG, 
@@ -341,33 +342,42 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
       >
         {/* Dynamic Interactive Background Design / Animations */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
-          {/* Texas Skyline Background - Made highly transparent for perfect readability and text highlight */}
-          <img
-            src={DALLAS_SKYLINE}
-            alt="Richardson Dallas Downtown Skyline background"
-            className="w-full h-full object-cover opacity-20 filter contrast-125 brightness-105 select-none"
-            referrerPolicy="no-referrer"
-          />
-          {/* Light gradient fade-out which keeps the background skyline highly visible */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#f0fbf7]/95 via-[#f0fbf7]/70 to-[#f0fbf7]/30 z-10"></div>
-          <div className="absolute inset-0 grid-overlay opacity-20 z-20"></div>
+          {/* Right Side Texas Skyline/Drone Shot Image - Perfectly positioned on the right and beautifully integrated */}
+          <div className="absolute top-0 right-0 w-full lg:w-[52%] h-full z-0 select-none pointer-events-none overflow-hidden">
+            <img
+              src={TEXAS_DRONE_SHOT}
+              alt="Texas Drone Skyline view showing iconic buildings"
+              className="w-full h-full object-cover object-center opacity-65 lg:opacity-75 filter contrast-110 brightness-105 select-none"
+              referrerPolicy="no-referrer"
+            />
+            {/* Left-to-right blend gradient: fades the left side of the drone shot smoothly into the light background */}
+            <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-[#f0fbf7] via-[#f0fbf7]/65 to-transparent z-10"></div>
+            {/* Bottom-to-top blend gradient: fades the bottom of the drone shot smoothly into the home page background */}
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#f0fbf7] to-transparent z-10"></div>
+          </div>
 
-          {/* Gorgeous Glowing Rounded Shape (Blob) floating up & down behind the design - Made highly visible and defined */}
+          {/* Left Side background cover - solid elegant gradient to ensure 100% pristine contrast/legibility for the text */}
+          <div className="absolute top-0 left-0 w-full lg:w-[48%] h-full bg-[#f0fbf7] z-10"></div>
+
+          {/* Light global grid overlay */}
+          <div className="absolute inset-0 grid-overlay opacity-15 z-20"></div>
+
+          {/* Gorgeous Glowing Rounded Shape (Blob) floating up & down behind the design - Adjusted transparency for optimal look */}
           <motion.div
             animate={{
-              y: [0, -40, 0],
-              scale: [1, 1.08, 1],
+              y: [0, -35, 0],
+              scale: [1, 1.06, 1],
             }}
             transition={{
-              duration: 6,
+              duration: 7,
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute bottom-12 right-[20%] w-[320px] h-[320px] rounded-full bg-gradient-to-tr from-sky-400/60 via-emerald-300/50 to-sky-300/50 blur-[45px] z-10 pointer-events-none select-none opacity-90"
+            className="absolute bottom-16 right-[15%] w-[340px] h-[340px] rounded-full bg-gradient-to-tr from-sky-400/40 via-emerald-300/30 to-sky-300/30 blur-[50px] z-10 pointer-events-none select-none opacity-80"
           />
 
-          {/* Live Financial Wave & Cyber Net Floating Animations (Realistic background design, made highly visible with beautiful custom gradients) */}
-          <svg className="absolute bottom-0 w-full h-[320px] opacity-[0.95] z-25" viewBox="0 0 1440 320" fill="none">
+          {/* Live Financial Wave & Cyber Net Floating Animations (Made beautifully transparent so background structures show through) */}
+          <svg className="absolute bottom-0 w-full h-[320px] opacity-[0.70] z-25" viewBox="0 0 1440 320" fill="none">
             {/* Wave Grid 1 */}
             <motion.path
               d="M0,160 C320,240 640,80 960,220 C1280,360 1440,180 1440,180 L1440,320 L0,320 Z"
@@ -392,7 +402,7 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
               strokeWidth="2.5"
               strokeDasharray="6, 12"
               fill="none"
-              opacity="0.75"
+              opacity="0.55"
               animate={{
                 strokeDashoffset: [0, -60],
                 d: [
@@ -409,9 +419,9 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
             />
             <defs>
               <linearGradient id="wave-gradient-glow" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.45" />
-                <stop offset="50%" stopColor="#2dd4bf" stopOpacity="0.30" />
-                <stop offset="100%" stopColor="#e0f2fe" stopOpacity="0.85" />
+                <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.25" />
+                <stop offset="50%" stopColor="#2dd4bf" stopOpacity="0.15" />
+                <stop offset="100%" stopColor="#e0f2fe" stopOpacity="0.55" />
               </linearGradient>
             </defs>
           </svg>
