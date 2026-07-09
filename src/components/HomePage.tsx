@@ -342,8 +342,8 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
       >
         {/* Dynamic Interactive Background Design / Animations */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
-          {/* Right Side Texas Skyline/Drone Shot Image - Perfectly positioned on the right and beautifully integrated */}
-          <div className="absolute top-0 right-0 w-full lg:w-[52%] h-full z-0 select-none pointer-events-none overflow-hidden">
+          {/* Right Side Texas Skyline/Drone Shot Image - Perfectly positioned on the right and beautifully integrated on desktop */}
+          <div className="absolute top-0 right-0 hidden lg:block lg:w-[52%] h-full z-0 select-none pointer-events-none overflow-hidden">
             <img
               src={TEXAS_DRONE_SHOT}
               alt="Texas Drone Skyline view showing iconic buildings"
@@ -356,7 +356,7 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
             <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#f0fbf7] to-transparent z-10"></div>
           </div>
 
-          {/* Left Side background cover - solid elegant gradient to ensure 100% pristine contrast/legibility for the text */}
+          {/* Left Side background cover - solid elegant gradient to ensure 100% pristine contrast/legibility for the text on all devices */}
           <div className="absolute top-0 left-0 w-full lg:w-[48%] h-full bg-[#f0fbf7] z-10"></div>
 
           {/* Light global grid overlay */}
@@ -458,8 +458,11 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
           </div>
         )}
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-28 relative z-30 w-full">
-          <div className="max-w-3xl block space-y-6 flex flex-col gap-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-20 lg:pt-28 lg:pb-28 relative z-30 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            {/* Left Column: Text & Actions */}
+            <div className="lg:col-span-7 flex flex-col gap-5 sm:gap-6 text-left relative z-40">
             
             {/* Location Badge (with custom typing state + cursor block) */}
             <div className="inline-flex items-center gap-2 bg-sky-50 text-sky-750 border border-sky-200 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide backdrop-blur-md shadow-sm">
@@ -613,6 +616,42 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
               </a>
             </div>
             
+            </div>
+
+            {/* Right Column (Mobile-First): Rendered inline on mobile, but absolute/hidden on desktop */}
+            <div className="lg:col-span-5 w-full block">
+              {/* Elegant City Skyline Showcase Card - Only visible on Mobile/Tablet so the iconic view is perfectly visible without any crop/cut-off */}
+              <div className="block lg:hidden w-full relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-sky-450 to-emerald-450 rounded-3xl blur opacity-20 group-hover:opacity-35 transition duration-1000"></div>
+                <div className="relative bg-white/95 backdrop-blur-xl rounded-2xl p-4 border border-sky-100 shadow-xl flex flex-col gap-4">
+                  <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden shadow-inner border border-slate-100">
+                    <img
+                      src={TEXAS_DRONE_SHOT}
+                      alt="Dallas Texas Skyline and city buildings"
+                      className="w-full h-full object-cover object-center select-none"
+                      referrerPolicy="no-referrer"
+                    />
+                    {/* Subtle elegant gradient overlay on bottom */}
+                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
+                    {/* Subtle local business location badge over the photo */}
+                    <div className="absolute bottom-3 left-3 bg-slate-900/80 backdrop-blur-md border border-slate-700/50 rounded-full px-3 py-1 text-[10px] font-bold text-white tracking-wider font-mono flex items-center gap-1.5 shadow-md">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                      DALLAS/RICHARDSON HQ
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between px-1 text-slate-700">
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-800">Shafiq Hasan CPA Office View</h4>
+                      <p className="text-[10px] text-slate-500 font-medium font-sans mt-0.5">Dallas Skyline showing core local buildings</p>
+                    </div>
+                    <div className="bg-sky-50 text-sky-700 border border-sky-200/50 rounded-lg py-1 px-2.5 text-[10px] font-mono font-bold tracking-tight">
+                      TEXAS HUB
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
