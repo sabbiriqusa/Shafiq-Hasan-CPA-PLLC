@@ -110,10 +110,15 @@ export default function ContactPage({
               <p className="text-[11px] text-zinc-350 font-normal">County District Precinct 4</p>
             </div>
             
-            <div className="my-4 p-4 bg-black/40 border border-white/10 rounded-2xl relative overflow-hidden flex flex-col items-center justify-center text-center">
-              <MapPin className="w-8 h-8 text-[#a3e635] animate-bounce mb-1" />
-              <span className="text-[10px] font-bold tracking-widest uppercase text-white font-mono">Business Circle Block</span>
-              <p className="text-[9px] text-zinc-400 mt-1">Lat: 32.9483° N, Lng: -96.7299° W</p>
+            <div className="my-4 relative overflow-hidden rounded-2xl border border-white/10 h-[220px] w-full bg-emerald-950/40">
+              <iframe
+                title="Richardson HQ Office Location Map"
+                src="https://maps.google.com/maps?q=2650%2011th%20Ave,%20Richardson,%20Dallas,%20TX%2075080&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                className="absolute inset-0 w-full h-full border-0 rounded-2xl"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
 
             <div className="flex flex-col sm:flex-row gap-2 items-center justify-between z-10 pt-3 border-t border-white/10 text-xs">

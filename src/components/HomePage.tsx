@@ -624,11 +624,11 @@ export default function HomePage({ setActiveTab, triggerScheduler }: HomePagePro
               <div className="block lg:hidden w-full relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-sky-450 to-emerald-450 rounded-3xl blur opacity-20 group-hover:opacity-35 transition duration-1000"></div>
                 <div className="relative bg-white/95 backdrop-blur-xl rounded-2xl p-4 border border-sky-100 shadow-xl flex flex-col gap-4">
-                  <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden shadow-inner border border-slate-100">
+                  <div className="relative w-full rounded-xl overflow-hidden shadow-inner border border-slate-100 bg-slate-50">
                     <img
                       src={TEXAS_DRONE_SHOT}
                       alt="Dallas Texas Skyline and city buildings"
-                      className="w-full h-full object-cover object-center select-none"
+                      className="w-full h-auto select-none rounded-xl"
                       referrerPolicy="no-referrer"
                     />
                     {/* Subtle elegant gradient overlay on bottom */}

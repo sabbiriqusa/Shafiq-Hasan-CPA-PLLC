@@ -32,7 +32,14 @@ import {
   Menu,
   Headphones,
   Sun,
-  Moon
+  Moon,
+  Calculator,
+  Calendar,
+  Download,
+  HelpCircle,
+  ClipboardList,
+  CheckSquare,
+  Globe
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -81,6 +88,7 @@ export default function App() {
   const [activeFaq, setActiveFaq] = useState<number | null>(1);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>("services");
 
   // Interaction Modals States
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
@@ -598,7 +606,7 @@ export default function App() {
 
         </div>
 
-        {/* Animated Mobile Menu with sub-categorizations */}
+        {/* Animated Mobile Menu with custom sub-categorizations */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -606,127 +614,242 @@ export default function App() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="lg:hidden bg-white/95 backdrop-blur-2xl border-t border-slate-200/70 overflow-hidden shadow-xl font-sans"
+              className="lg:hidden bg-[#f8faf9] border-t border-slate-200/80 overflow-hidden shadow-2xl font-sans"
             >
-              <div className="px-5 py-6 space-y-3.5 max-h-[80vh] overflow-y-auto text-slate-700">
-                {/* Core Pages */}
+              <div className="px-4 py-5 space-y-4 max-h-[85vh] overflow-y-auto text-slate-700">
+                {/* 1. Core Navigation Shortcuts (Top App-Bar Grid) */}
+                <div className="grid grid-cols-3 gap-2">
+                  <button
+                    onClick={() => { setActiveTab("home"); setIsMobileMenuOpen(false); }}
+                    className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all cursor-pointer active:scale-95 ${
+                      activeTab === "home" 
+                        ? "bg-sky-500 text-white border-sky-500 shadow-md shadow-sky-500/25" 
+                        : "bg-white text-slate-700 border-slate-200/80 hover:bg-slate-50"
+                    }`}
+                  >
+                    <Home className="w-5 h-5 mb-1 shrink-0" />
+                    <span className="text-[10px] font-bold tracking-tight">Home</span>
+                  </button>
+                  <button
+                    onClick={() => { setActiveTab("about"); setIsMobileMenuOpen(false); }}
+                    className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all cursor-pointer active:scale-95 ${
+                      activeTab === "about" 
+                        ? "bg-sky-500 text-white border-sky-500 shadow-md shadow-sky-500/25" 
+                        : "bg-white text-slate-700 border-slate-200/80 hover:bg-slate-50"
+                    }`}
+                  >
+                    <Users className="w-5 h-5 mb-1 shrink-0" />
+                    <span className="text-[10px] font-bold tracking-tight">Our Team</span>
+                  </button>
+                  <button
+                    onClick={() => { setActiveTab("contact"); setIsMobileMenuOpen(false); }}
+                    className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all cursor-pointer active:scale-95 ${
+                      activeTab === "contact" 
+                        ? "bg-sky-500 text-white border-sky-500 shadow-md shadow-sky-500/25" 
+                        : "bg-white text-slate-700 border-slate-200/80 hover:bg-slate-50"
+                    }`}
+                  >
+                    <Mail className="w-5 h-5 mb-1 shrink-0" />
+                    <span className="text-[10px] font-bold tracking-tight">Contact</span>
+                  </button>
+                </div>
+
+                {/* Divider with a modern app feel */}
+                <div className="flex items-center gap-2 px-1 py-1">
+                  <div className="h-px bg-slate-200 flex-1"></div>
+                  <span className="text-[9px] font-mono font-extrabold uppercase tracking-widest text-slate-400">App Categories</span>
+                  <div className="h-px bg-slate-200 flex-1"></div>
+                </div>
+
+                {/* 2. Custom App Accordions/Category Selectors */}
+                <div className="space-y-2">
+                  
+                  {/* Category A: Services */}
+                  <div className="bg-white border border-slate-200/70 rounded-2xl overflow-hidden shadow-sm">
+                    <button
+                      onClick={() => setExpandedMobileCategory(expandedMobileCategory === "services" ? null : "services")}
+                      className="w-full flex items-center justify-between px-4 py-3 bg-slate-50/65 font-bold text-xs uppercase tracking-wider text-slate-800 border-b border-slate-100"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="p-1.5 rounded-lg bg-sky-100 text-sky-600">
+                          <Briefcase className="w-3.5 h-3.5" />
+                        </div>
+                        <span>Core CPA Services</span>
+                      </div>
+                      {expandedMobileCategory === "services" ? <ChevronUp className="w-4 h-4 text-slate-500" /> : <ChevronDown className="w-4 h-4 text-slate-500" />}
+                    </button>
+                    {expandedMobileCategory === "services" && (
+                      <div className="p-3 grid grid-cols-2 gap-2 bg-white animate-fadeIn">
+                        {[
+                          { label: "For Individuals", tag: "individual", icon: User, color: "text-emerald-600 bg-emerald-50" },
+                          { label: "For Businesses", tag: "business", icon: Briefcase, color: "text-blue-600 bg-blue-50" },
+                          { label: "QuickBooks support", tag: "quickbooks", icon: Cpu, color: "text-violet-600 bg-violet-50" },
+                          { label: "VAT & Global Consultancy", tag: "tax", icon: Globe, color: "text-amber-600 bg-amber-50" }
+                        ].map((sub, idx) => {
+                          const IconComponent = sub.icon;
+                          return (
+                            <button
+                              key={idx}
+                              onClick={() => {
+                                setActiveTab("services");
+                                setSearchQuery(sub.tag);
+                                setIsMobileMenuOpen(false);
+                              }}
+                              className="flex flex-col items-start p-3 bg-slate-50/60 hover:bg-sky-50/60 border border-slate-150/85 rounded-xl text-left transition-all active:scale-95 cursor-pointer h-full justify-between"
+                            >
+                              <div className={`p-1.5 rounded-lg ${sub.color} mb-2`}>
+                                <IconComponent className="w-4 h-4" />
+                              </div>
+                              <span className="text-[11px] font-bold text-slate-800 leading-tight">{sub.label}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Category C: Guides */}
+                  <div className="bg-white border border-slate-200/70 rounded-2xl overflow-hidden shadow-sm">
+                    <button
+                      onClick={() => setExpandedMobileCategory(expandedMobileCategory === "guides" ? null : "guides")}
+                      className="w-full flex items-center justify-between px-4 py-3 bg-slate-50/65 font-bold text-xs uppercase tracking-wider text-slate-800 border-b border-slate-100"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="p-1.5 rounded-lg bg-teal-100 text-teal-700">
+                          <FileText className="w-3.5 h-3.5" />
+                        </div>
+                        <span>CPA Knowledge Guides</span>
+                      </div>
+                      {expandedMobileCategory === "guides" ? <ChevronUp className="w-4 h-4 text-slate-500" /> : <ChevronDown className="w-4 h-4 text-slate-500" />}
+                    </button>
+                    {expandedMobileCategory === "guides" && (
+                      <div className="p-3 grid grid-cols-2 gap-2 bg-white animate-fadeIn">
+                        {[
+                          { label: "Texas Property tax Appeals", code: "property-tax", icon: TrendingUp, color: "text-amber-600 bg-amber-50" },
+                          { label: "FICA S-Corp Dividend Shields", code: "scorp", icon: ShieldAlert, color: "text-sky-600 bg-sky-50" },
+                          { label: "Amazon & Shopify economic VAT", code: "vat", icon: Percent, color: "text-indigo-600 bg-indigo-50" },
+                          { label: "Survive standard IRS Correspondence", code: "audit", icon: AlertTriangle, color: "text-red-600 bg-red-50" }
+                        ].map((sub, idx) => {
+                          const IconComponent = sub.icon;
+                          return (
+                            <button
+                              key={idx}
+                              onClick={() => {
+                                setActiveTab("guides");
+                                setSelectedGuideId(sub.code);
+                                setIsMobileMenuOpen(false);
+                              }}
+                              className="flex flex-col items-start p-3 bg-slate-50/60 hover:bg-sky-50/60 border border-slate-150/85 rounded-xl text-left transition-all active:scale-95 cursor-pointer h-full justify-between"
+                            >
+                              <div className={`p-1.5 rounded-lg ${sub.color} mb-2`}>
+                                <IconComponent className="w-4 h-4" />
+                              </div>
+                              <span className="text-[11px] font-bold text-slate-800 leading-tight">{sub.label}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Category D: Miscellaneous */}
+                  <div className="bg-white border border-slate-200/70 rounded-2xl overflow-hidden shadow-sm">
+                    <button
+                      onClick={() => setExpandedMobileCategory(expandedMobileCategory === "misc" ? null : "misc")}
+                      className="w-full flex items-center justify-between px-4 py-3 bg-slate-50/65 font-bold text-xs uppercase tracking-wider text-slate-800 border-b border-slate-100"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="p-1.5 rounded-lg bg-orange-100 text-orange-700">
+                          <HelpCircle className="w-3.5 h-3.5" />
+                        </div>
+                        <span>Filing Resources</span>
+                      </div>
+                      {expandedMobileCategory === "misc" ? <ChevronUp className="w-4 h-4 text-slate-500" /> : <ChevronDown className="w-4 h-4 text-slate-500" />}
+                    </button>
+                    {expandedMobileCategory === "misc" && (
+                      <div className="p-3 grid grid-cols-2 gap-2 bg-white animate-fadeIn">
+                        {[
+                          { label: "FAQ Helpdesk", code: "faq", icon: HelpCircle, color: "text-orange-600 bg-orange-50" },
+                          { label: "New Client Onboarding", code: "onboarding", icon: ClipboardList, color: "text-violet-600 bg-violet-50" },
+                          { label: "Intake Document Checklist", code: "docs", icon: CheckSquare, color: "text-emerald-600 bg-emerald-50" },
+                          { label: "Texas Corporate CTA BOI Filing", code: "cta", icon: AlertTriangle, color: "text-rose-600 bg-rose-50" }
+                        ].map((sub, idx) => {
+                          const IconComponent = sub.icon;
+                          return (
+                            <button
+                              key={idx}
+                              onClick={() => {
+                                setActiveTab("misc");
+                                setSelectedMiscId(sub.code);
+                                setIsMobileMenuOpen(false);
+                              }}
+                              className="flex flex-col items-start p-3 bg-slate-50/60 hover:bg-sky-50/60 border border-slate-150/85 rounded-xl text-left transition-all active:scale-95 cursor-pointer h-full justify-between"
+                            >
+                              <div className={`p-1.5 rounded-lg ${sub.color} mb-2`}>
+                                <IconComponent className="w-4 h-4" />
+                              </div>
+                              <span className="text-[11px] font-bold text-slate-800 leading-tight">{sub.label}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Category B: Tax Center */}
+                  <div className="bg-white border border-slate-200/70 rounded-2xl overflow-hidden shadow-sm">
+                    <button
+                      onClick={() => setExpandedMobileCategory(expandedMobileCategory === "tax-center" ? null : "tax-center")}
+                      className="w-full flex items-center justify-between px-4 py-3 bg-slate-50/65 font-bold text-xs uppercase tracking-wider text-slate-800 border-b border-slate-100"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="p-1.5 rounded-lg bg-lime-100 text-lime-700">
+                          <Calculator className="w-3.5 h-3.5" />
+                        </div>
+                        <span>Tax Center Hub</span>
+                      </div>
+                      {expandedMobileCategory === "tax-center" ? <ChevronUp className="w-4 h-4 text-slate-500" /> : <ChevronDown className="w-4 h-4 text-slate-500" />}
+                    </button>
+                    {expandedMobileCategory === "tax-center" && (
+                      <div className="p-3 grid grid-cols-2 gap-2 bg-white animate-fadeIn">
+                        {[
+                          { label: "Interactive Tools", code: "calculators", icon: Calculator, color: "text-lime-700 bg-lime-50" },
+                          { label: "Deadlines Calendar", code: "calendar", icon: Calendar, color: "text-rose-600 bg-rose-50" },
+                          { label: "IRS Form PDFs", code: "forms", icon: Download, color: "text-cyan-600 bg-cyan-50" },
+                          { label: "Margin Rates", code: "rates", icon: Percent, color: "text-purple-600 bg-purple-50" }
+                        ].map((sub, idx) => {
+                          const IconComponent = sub.icon;
+                          return (
+                            <button
+                              key={idx}
+                              onClick={() => {
+                                setActiveTab("tax-center");
+                                setSelectedTaxCenterId(sub.code);
+                                setIsMobileMenuOpen(false);
+                              }}
+                              className="flex flex-col items-start p-3 bg-slate-50/60 hover:bg-sky-50/60 border border-slate-150/85 rounded-xl text-left transition-all active:scale-95 cursor-pointer h-full justify-between"
+                            >
+                              <div className={`p-1.5 rounded-lg ${sub.color} mb-2`}>
+                                <IconComponent className="w-4 h-4" />
+                              </div>
+                              <span className="text-[11px] font-bold text-slate-800 leading-tight">{sub.label}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                </div>
+
+                {/* 3. Free App-style Instant Action Button */}
                 <button
-                  onClick={() => { setActiveTab("home"); setIsMobileMenuOpen(false); }}
-                  className={`block w-full text-left px-4 py-2 rounded-xl text-sm font-bold tracking-tight cursor-pointer ${
-                    activeTab === "home" ? "bg-sky-50 text-sky-600" : "text-slate-600 hover:text-slate-900"
-                  }`}
+                  onClick={() => { setIsConsultationOpen(true); setIsMobileMenuOpen(false); }}
+                  className="w-full mt-2 py-4 px-5 bg-gradient-to-r from-emerald-800 to-sky-700 text-white font-bold rounded-2xl shadow-lg transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer text-sm"
                 >
-                  Home
-                </button>
-
-                {/* Services Section */}
-                <div className="border-l border-slate-200 pl-3 py-1 space-y-1">
-                  <span className="text-[10px] font-mono tracking-wider text-sky-600 font-extrabold uppercase px-1">Services Dropdown:</span>
-                  {[
-                    { label: "For Individuals", tag: "individual" },
-                    { label: "For Businesses", tag: "business" },
-                    { label: "QuickBooks support", tag: "quickbooks" },
-                    { label: "VAT & Global Consultancy", tag: "tax" }
-                  ].map((sub, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => {
-                        setActiveTab("services");
-                        setSearchQuery(sub.tag);
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="block w-full text-left py-1 px-2 text-xs font-semibold text-slate-500 hover:text-sky-600 cursor-pointer"
-                    >
-                      ↳ {sub.label}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Misc Section */}
-                <div className="border-l border-slate-200 pl-3 py-1 space-y-1">
-                  <span className="text-[10px] font-mono tracking-wider text-sky-600 font-extrabold uppercase px-1">Misc Dropdown:</span>
-                  {[
-                    { label: "FAQ Helpdesk", code: "faq" },
-                    { label: "New Client Onboarding", code: "onboarding" },
-                    { label: "Intake Document Checklist", code: "docs" },
-                    { label: "Texas Corporate CTA BOI Filing", code: "cta" }
-                  ].map((sub, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => {
-                        setActiveTab("misc");
-                        setSelectedMiscId(sub.code);
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="block w-full text-left py-1 px-2 text-xs font-semibold text-slate-500 hover:text-sky-600 cursor-pointer"
-                    >
-                      ↳ {sub.label}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Guides Section */}
-                <div className="border-l border-slate-200 pl-3 py-1 space-y-1">
-                  <span className="text-[10px] font-mono tracking-wider text-sky-600 font-extrabold uppercase px-1">Guides Dropdown:</span>
-                  {[
-                    { label: "Texas Property tax Appeals", code: "property-tax" },
-                    { label: "FICA S-Corp Dividend Shields", code: "scorp" },
-                    { label: "Amazon & Shopify economic VAT", code: "vat" },
-                    { label: "Survive standard IRS Correspondence", code: "audit" }
-                  ].map((sub, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => {
-                        setActiveTab("guides");
-                        setSelectedGuideId(sub.code);
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="block w-full text-left py-1 px-2 text-xs font-semibold text-slate-500 hover:text-sky-600 cursor-pointer"
-                    >
-                      ↳ {sub.label}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Tax Center Section */}
-                <div className="border-l border-slate-200 pl-3 py-1 space-y-1">
-                  <span className="text-[10px] font-mono tracking-wider text-sky-600 font-extrabold uppercase px-1">Tax Center Dropdown:</span>
-                  {[
-                    { label: "Interactive Estimators Suite", code: "calculators" },
-                    { label: "Important Tax Deadlines Calendar", code: "calendar" },
-                    { label: "Download essential IRS Form PDFs", code: "forms" },
-                    { label: "Margin Brackets Reference Tables", code: "rates" }
-                  ].map((sub, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => {
-                        setActiveTab("tax-center");
-                        setSelectedTaxCenterId(sub.code);
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="block w-full text-left py-1 px-2 text-xs font-semibold text-slate-500 hover:text-sky-600 cursor-pointer"
-                    >
-                      ↳ {sub.label}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Bottom Links */}
-                <button
-                  onClick={() => { setActiveTab("about"); setIsMobileMenuOpen(false); }}
-                  className={`block w-full text-left px-4 py-2 rounded-xl text-sm font-bold tracking-tight cursor-pointer ${
-                    activeTab === "about" ? "bg-sky-50 text-sky-600" : "text-slate-600 hover:text-sky-900"
-                  }`}
-                >
-                  Meet Our Team
-                </button>
-                <button
-                  onClick={() => { setActiveTab("contact"); setIsMobileMenuOpen(false); }}
-                  className={`block w-full text-left px-4 py-2 rounded-xl text-sm font-bold tracking-tight cursor-pointer ${
-                    activeTab === "contact" ? "bg-sky-50 text-sky-600" : "text-slate-600 hover:text-sky-900"
-                  }`}
-                >
-                  Contact
+                  <Sparkles className="w-4 h-4 text-[#a3e635] animate-pulse" />
+                  <span>Request Free Consult Desk</span>
+                  <ChevronRight className="w-4 h-4 text-white/80" />
                 </button>
               </div>
             </motion.div>
